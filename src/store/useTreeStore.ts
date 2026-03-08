@@ -1,0 +1,209 @@
+import { create } from 'zustand';
+import { applyNodeChanges, applyEdgeChanges, addEdge } from 'reactflow';
+import type {
+  NodeChange,
+  EdgeChange,
+  Connection,
+} from 'reactflow';
+import { v4 as uuidv4 } from 'uuid';
+import type {
+  LaborNode,
+  LaborEdge,
+  LaborNodeData,
+  LaborEdgeData,
+  AppMode,
+  EditorSelection,
+  TreeSchema,
+  NodeType,
+  WizardStep,
+} from '../types';
+import { sampleTree } from '../data/sampleTree';
+
+interface TreeState {
+  nodes: LaborNode[];
+  edges: LaborEdge[];
+  mode: AppMode;
+  selection: EditorSelection;
+
+  // ReactFlow handlers
+  onNodesChange: (changes: NodeChange[]) => void;
+  onEdgesChange: (changes: EdgeChange[]) => void;
+  onConnect: (connection: Connection) => void;
+
+  // Node CRUD
+  addNode: (type: NodeType, position?: { x: number; y: number }) => void;
+  updateNode: (id: string, data: Partial<LaborNodeData>) => void;
+  deleteNode: (id: string) => void;
+
+  // Edge CRUD
+  updateEdge: (id: string, data: Partial<LaborEdgeData>) => void;
+  deleteEdge: (id: string) => void;
+
+  // Tree
+  loadTree: (schema: TreeSchema) => void;
+
+  // UI
+  setMode: (mode: AppMode) => void;
+  setSelection: (selection: EditorSelection) => void;
+  clearSelection: () => void;
+  snapToGrid: boolean;
+  toggleSnapToGrid: () => void;
+
+  // Guide / wizard
+  wizardCurrentId: string | null;
+  wizardHistory: WizardStep[];
+  startGuide: () => void;
+  guideStep: (nodeId: string, choiceLabel?: string) => void;
+  guideBack: () => void;
+  restartGuide: () => void;
+}
+
+export const useTreeStore = create<TreeState>((set) => ({
+  nodes: sampleTree.nodes,
+  edges: sampleTree.edges,
+  mode: 'view',
+  selection: { type: 'none', id: null },
+  snapToGrid: true,
+  wizardCurrentId: null,
+  wizardHistory: [],
+
+  onNodesChange: (changes) => {
+    set((state) => ({
+      nodes: applyNodeChanges(changes, state.nodes) as LaborNode[],
+    }));
+  },
+
+  onEdgesChange: (changes) => {
+    set((state) => ({
+      edges: applyEdgeChanges(changes, state.edges) as LaborEdge[],
+    }));
+  },
+
+  onConnect: (connection) => {
+    set((state) => ({
+      edges: addEdge(
+        {
+          ...connection,
+          id: uuidv4(),
+          data: {},
+        },
+        state.edges
+      ) as LaborEdge[],
+    }));
+  },
+
+  addNode: (type, position = { x: 300, y: 300 }) => {
+    const id = uuidv4();
+    const newNode: LaborNode = {
+      id,
+      type,
+      position,
+      data: {
+        label: `New ${type} node`,
+        description: '',
+        nodeType: type,
+      },
+    };
+    set((state) => ({
+      nodes: [...state.nodes, newNode],
+      selection: { type: 'node', id },
+    }));
+  },
+
+  updateNode: (id, data) => {
+    set((state) => ({
+      nodes: state.nodes.map((n) =>
+        n.id === id ? { ...n, data: { ...n.data, ...data } } : n
+      ),
+    }));
+  },
+
+  deleteNode: (id) => {
+    set((state) => ({
+      nodes: state.nodes.filter((n) => n.id !== id),
+      edges: state.edges.filter((e) => e.source !== id && e.target !== id),
+      selection: { type: 'none', id: null },
+    }));
+  },
+
+  updateEdge: (id, data) => {
+    set((state) => ({
+      edges: state.edges.map((e) =>
+        e.id === id
+          ? { ...e, label: data.label ?? e.label, data: { ...e.data, ...data } }
+          : e
+      ),
+    }));
+  },
+
+  deleteEdge: (id) => {
+    set((state) => ({
+      edges: state.edges.filter((e) => e.id !== id),
+      selection: { type: 'none', id: null },
+    }));
+  },
+
+  loadTree: (schema) => {
+    set({
+      nodes: schema.nodes,
+      edges: schema.edges,
+      selection: { type: 'none', id: null },
+    });
+  },
+
+  setMode: (mode) => {
+    set({ mode, selection: { type: 'none', id: null } });
+  },
+
+  setSelection: (selection) => {
+    set({ selection });
+  },
+
+  clearSelection: () => {
+    set({ selection: { type: 'none', id: null } });
+  },
+
+  toggleSnapToGrid: () => {
+    set((state) => ({ snapToGrid: !state.snapToGrid }));
+  },
+
+  startGuide: () => {
+    const { nodes, edges } = useTreeStore.getState();
+    const targetIds = new Set(edges.map((e) => e.target));
+    const root = nodes.find((n) => !targetIds.has(n.id)) ?? nodes[0] ?? null;
+    set({ wizardCurrentId: root?.id ?? null, wizardHistory: [] });
+  },
+
+  guideStep: (nodeId, choiceLabel) => {
+    set((state) => ({
+      wizardHistory: [
+        ...state.wizardHistory,
+        { nodeId: state.wizardCurrentId!, choiceLabel },
+      ],
+      wizardCurrentId: nodeId,
+    }));
+  },
+
+  guideBack: () => {
+    set((state) => {
+      if (state.wizardHistory.length === 0) return {};
+      const prev = state.wizardHistory[state.wizardHistory.length - 1];
+      return {
+        wizardCurrentId: prev.nodeId,
+        wizardHistory: state.wizardHistory.slice(0, -1),
+      };
+    });
+  },
+
+  restartGuide: () => {
+    const { startGuide } = useTreeStore.getState();
+    startGuide();
+  },
+}));
+
+// Selector helpers
+export const selectTree = (state: TreeState): TreeSchema => ({
+  version: 1,
+  nodes: state.nodes,
+  edges: state.edges,
+});
