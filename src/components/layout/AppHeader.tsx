@@ -100,7 +100,7 @@ export function AppHeader() {
         </button>
       )}
 
-      <Button variant="secondary" size="sm" onClick={handleExport}>
+      <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
         Export
       </Button>
       <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
