@@ -14,6 +14,14 @@ html, body, #root {
   overflow: hidden;
 }
 
+/* Allow browser native pull-to-refresh on mobile */
+@media (max-width: 767px) {
+  html {
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
+  }
+}
+
 /* ReactFlow override: remove default attribution */
 .react-flow__attribution {
   display: none;
