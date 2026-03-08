@@ -46,8 +46,8 @@ export function AppHeader() {
         Labor Decision Tree
       </h1>
 
-      {/* Mode toggle */}
-      <div className="flex rounded-md border border-gray-300 overflow-hidden text-xs font-medium">
+      {/* Mode toggle — hidden on mobile */}
+      <div className="hidden sm:flex rounded-md border border-gray-300 overflow-hidden text-xs font-medium">
         <button
           onClick={() => setMode('view')}
           className={`px-3 py-1.5 transition-colors ${
@@ -84,7 +84,7 @@ export function AppHeader() {
         <button
           onClick={toggleSnapToGrid}
           title="Toggle snap to grid"
-          className={`flex items-center gap-1.5 rounded border px-2.5 py-1.5 text-xs font-medium transition-colors ${
+          className={`hidden sm:flex items-center gap-1.5 rounded border px-2.5 py-1.5 text-xs font-medium transition-colors ${
             snapToGrid
               ? 'bg-blue-50 border-blue-400 text-blue-700'
               : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
