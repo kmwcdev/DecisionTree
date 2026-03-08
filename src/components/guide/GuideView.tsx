@@ -21,7 +21,9 @@ export function GuideView() {
 
   return (
     <div className="flex flex-1 overflow-hidden bg-gray-50">
-      <HistorySidebar />
+      <div className="hidden sm:block">
+        <HistorySidebar />
+      </div>
       <div className="flex-1 flex items-center justify-center p-8 overflow-y-auto">
         <NodeCard nodeId={wizardCurrentId} />
       </div>
