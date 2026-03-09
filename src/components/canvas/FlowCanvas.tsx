@@ -28,7 +28,6 @@ export function FlowCanvas() {
     nodes,
     edges,
     mode,
-    snapToGrid,
     onNodesChange,
     onEdgesChange,
     onConnect,
@@ -89,7 +88,7 @@ export function FlowCanvas() {
         onEdgeUpdateEnd={onEdgeUpdateEnd}
         connectionMode={ConnectionMode.Loose}
         elementsSelectable={true}
-        snapToGrid={mode === 'editor' && snapToGrid}
+        snapToGrid={mode === 'editor'}
         snapGrid={SNAP_GRID}
         onNodeClick={(_, node) => setSelection({ type: 'node', id: node.id })}
         onEdgeClick={(_, edge) => setSelection({ type: 'edge', id: edge.id })}
@@ -100,10 +99,10 @@ export function FlowCanvas() {
         maxZoom={2}
       >
         <Background
-          variant={mode === 'editor' && snapToGrid ? BackgroundVariant.Lines : BackgroundVariant.Dots}
+          variant={mode === 'editor' ? BackgroundVariant.Lines : BackgroundVariant.Dots}
           gap={20}
           size={1}
-          color={mode === 'editor' && snapToGrid ? '#e5e7eb' : '#d1d5db'}
+          color={mode === 'editor' ? '#e5e7eb' : '#d1d5db'}
         />
         <Controls />
         <MiniMap

@@ -4,7 +4,7 @@ import type { TreeSchema } from '../../types';
 import { useRef } from 'react';
 
 export function AppHeader() {
-  const { mode, setMode, loadTree, snapToGrid, toggleSnapToGrid } = useTreeStore();
+  const { mode, setMode, loadTree } = useTreeStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -80,25 +80,6 @@ export function AppHeader() {
         </button>
       </div>
 
-      {mode === 'editor' && (
-        <button
-          onClick={toggleSnapToGrid}
-          title="Toggle snap to grid"
-          className={`hidden sm:flex items-center gap-1.5 rounded border px-2.5 py-1.5 text-xs font-medium transition-colors ${
-            snapToGrid
-              ? 'bg-blue-50 border-blue-400 text-blue-700'
-              : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
-          }`}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
-            <rect x="0.5" y="0.5" width="4" height="4" rx="0.5" stroke="currentColor"/>
-            <rect x="7.5" y="0.5" width="4" height="4" rx="0.5" stroke="currentColor"/>
-            <rect x="0.5" y="7.5" width="4" height="4" rx="0.5" stroke="currentColor"/>
-            <rect x="7.5" y="7.5" width="4" height="4" rx="0.5" stroke="currentColor"/>
-          </svg>
-          Snap
-        </button>
-      )}
 
       <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
         Export

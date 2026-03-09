@@ -46,9 +46,6 @@ interface TreeState {
   setMode: (mode: AppMode) => void;
   setSelection: (selection: EditorSelection) => void;
   clearSelection: () => void;
-  snapToGrid: boolean;
-  toggleSnapToGrid: () => void;
-
   // Guide / wizard
   wizardCurrentId: string | null;
   wizardHistory: WizardStep[];
@@ -63,7 +60,6 @@ export const useTreeStore = create<TreeState>((set) => ({
   edges: sampleTree.edges,
   mode: 'view',
   selection: { type: 'none', id: null },
-  snapToGrid: true,
   wizardCurrentId: null,
   wizardHistory: [],
 
@@ -161,10 +157,6 @@ export const useTreeStore = create<TreeState>((set) => ({
 
   clearSelection: () => {
     set({ selection: { type: 'none', id: null } });
-  },
-
-  toggleSnapToGrid: () => {
-    set((state) => ({ snapToGrid: !state.snapToGrid }));
   },
 
   startGuide: () => {
