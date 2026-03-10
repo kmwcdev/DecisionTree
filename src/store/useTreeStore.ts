@@ -140,10 +140,14 @@ export const useTreeStore = create<TreeState>((set) => ({
   },
 
   loadTree: (schema) => {
+    const targetIds = new Set(schema.edges.map((e) => e.target));
+    const root = schema.nodes.find((n) => !targetIds.has(n.id)) ?? schema.nodes[0] ?? null;
     set({
       nodes: schema.nodes,
       edges: schema.edges,
       selection: { type: 'none', id: null },
+      wizardCurrentId: root?.id ?? null,
+      wizardHistory: [],
     });
   },
 
