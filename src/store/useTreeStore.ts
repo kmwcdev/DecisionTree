@@ -46,6 +46,7 @@ interface TreeState {
   setMode: (mode: AppMode) => void;
   setSelection: (selection: EditorSelection) => void;
   clearSelection: () => void;
+  savedAt: number | null;
   // Guide / wizard
   wizardCurrentId: string | null;
   wizardHistory: WizardStep[];
@@ -60,6 +61,7 @@ export const useTreeStore = create<TreeState>((set) => ({
   edges: sampleTree.edges,
   mode: 'view',
   selection: { type: 'none', id: null },
+  savedAt: null,
   wizardCurrentId: null,
   wizardHistory: [],
 

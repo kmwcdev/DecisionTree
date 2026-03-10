@@ -38,6 +38,7 @@ export function NodeForm({ nodeId }: Props) {
 
   const handleSave = () => {
     updateNode(nodeId, { label, description, nodeType });
+    useTreeStore.setState({ savedAt: Date.now() });
   };
 
   return (

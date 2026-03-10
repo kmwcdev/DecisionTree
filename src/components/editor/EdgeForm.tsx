@@ -25,6 +25,7 @@ export function EdgeForm({ edgeId }: Props) {
 
   const handleSave = () => {
     updateEdge(edgeId, { label });
+    useTreeStore.setState({ savedAt: Date.now() });
   };
 
   return (
