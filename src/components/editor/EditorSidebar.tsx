@@ -2,7 +2,6 @@ import { useTreeStore } from '../../store/useTreeStore';
 import { NodeForm } from './NodeForm';
 import { EdgeForm } from './EdgeForm';
 import { AddNodePanel } from './AddNodePanel';
-import { ImportExportPanel } from './ImportExportPanel';
 
 export function EditorSidebar() {
   const { selection } = useTreeStore();
@@ -28,10 +27,6 @@ export function EditorSidebar() {
         {selection.type === 'edge' && selection.id && (
           <EdgeForm edgeId={selection.id} />
         )}
-
-        <div className="mt-auto pt-4 border-t border-gray-100 shrink-0">
-          <ImportExportPanel />
-        </div>
       </div>
     </aside>
   );
