@@ -76,24 +76,26 @@ export function AppHeader() {
         </button>
       )}
       <h1 className="text-base font-bold text-gray-900 dark:text-gray-100 mr-auto">
-        Labor Decision Tree
+        Decision Tree
       </h1>
 
-      {mode === 'guide' && (
-        <Button
-          variant={guideEditMode ? 'primary' : 'secondary'}
-          size="sm"
-          onClick={() => setGuideEditMode(!guideEditMode)}
-        >
-          {guideEditMode ? 'Done' : 'Reorder'}
+      <div className="flex items-center gap-1">
+        {mode === 'guide' && (
+          <Button
+            variant={guideEditMode ? 'primary' : 'secondary'}
+            size="sm"
+            onClick={() => setGuideEditMode(!guideEditMode)}
+          >
+            {guideEditMode ? 'Done' : 'Reorder'}
+          </Button>
+        )}
+        <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
+          Export
         </Button>
-      )}
-      <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
-        Export
-      </Button>
-      <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
-        Import
-      </Button>
+        <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
+          Import
+        </Button>
+      </div>
 
       {/* Mode toggle — hidden on mobile */}
       <div className="hidden sm:flex rounded-md border border-gray-300 dark:border-gray-600 overflow-hidden text-xs font-medium">
