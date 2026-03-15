@@ -240,6 +240,7 @@ export function NodeCard({ nodeId }: Props) {
                   <button
                     onClick={() => guideStep(edge.target, typeof edge.label === 'string' ? edge.label : undefined)}
                     className={`w-full rounded-xl border-2 px-5 py-3.5 text-left font-medium text-sm transition-colors ${nextButtonStyles[target.data.nodeType]}`}
+                    style={{ touchAction: 'pan-y' }}
                   >
                     <span className="block">{edgeLabel}</span>
                     {targetLabel && (

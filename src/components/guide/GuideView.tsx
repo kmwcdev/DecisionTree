@@ -51,7 +51,7 @@ export function GuideView() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto" style={{ touchAction: 'pan-y' }}>
         <div className="min-h-full flex items-center justify-center p-8">
           <NodeCard nodeId={wizardCurrentId} />
         </div>
