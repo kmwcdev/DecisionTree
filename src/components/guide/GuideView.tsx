@@ -22,7 +22,7 @@ export function GuideView() {
   return (
     <div className="flex flex-1 overflow-hidden bg-gray-50 relative">
       {/* Desktop history sidebar */}
-      <div className="hidden sm:block">
+      <div className="hidden sm:flex">
         <HistorySidebar />
       </div>
 

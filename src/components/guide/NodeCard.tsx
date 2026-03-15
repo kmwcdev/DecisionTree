@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from 'react';
 import { useTreeStore } from '../../store/useTreeStore';
 import type { NodeType } from '../../types';
 
@@ -28,12 +29,78 @@ const nextButtonStyles: Record<NodeType, string> = {
   info: 'border-gray-300 bg-white text-gray-800 hover:bg-gray-50 hover:border-gray-400',
 };
 
+const nextButtonBorderStyle: Record<NodeType, string> = {
+  decision: 'border-amber-300',
+  action: 'border-blue-300',
+  info: 'border-gray-300',
+};
+
+const nextButtonContentStyle: Record<NodeType, string> = {
+  decision: 'bg-amber-50 text-amber-900',
+  action: 'bg-blue-50 text-blue-900',
+  info: 'bg-white text-gray-800',
+};
+
+function GripIcon() {
+  return (
+    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+      <circle cx="5.5" cy="4" r="1.3" />
+      <circle cx="10.5" cy="4" r="1.3" />
+      <circle cx="5.5" cy="8" r="1.3" />
+      <circle cx="10.5" cy="8" r="1.3" />
+      <circle cx="5.5" cy="12" r="1.3" />
+      <circle cx="10.5" cy="12" r="1.3" />
+    </svg>
+  );
+}
+
+function OptionContent({ edgeLabel, targetLabel, nodeType }: {
+  edgeLabel: string;
+  targetLabel?: string;
+  nodeType: NodeType;
+}) {
+  return (
+    <div className={`flex rounded-xl border-2 overflow-hidden ${nextButtonBorderStyle[nodeType]}`}>
+      <div className="flex items-center justify-center px-3 bg-gray-50 text-gray-300 border-r border-gray-200 cursor-grab active:cursor-grabbing select-none">
+        <GripIcon />
+      </div>
+      <div className={`flex-1 px-5 py-3.5 font-medium text-sm ${nextButtonContentStyle[nodeType]}`}>
+        <span className="block">{edgeLabel}</span>
+        {targetLabel && (
+          <span className="block text-xs font-normal opacity-60 mt-0.5">{targetLabel}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 interface Props {
   nodeId: string;
 }
 
 export function NodeCard({ nodeId }: Props) {
-  const { nodes, edges, guideStep, guideBack, restartGuide, wizardHistory } = useTreeStore();
+  const { nodes, edges, guideStep, guideBack, restartGuide, wizardHistory, guideEditMode, reorderEdges } = useTreeStore();
+
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [overIndex, setOverIndex] = useState<number | null>(null);
+  const [ghostPos, setGhostPos] = useState<{ x: number; y: number } | null>(null);
+
+  const draggingRef = useRef<number | null>(null);
+  const overIndexRef = useRef<number | null>(null);
+  const dragOffsetRef = useRef({ x: 0, y: 0 });
+  const ghostSizeRef = useRef({ width: 0, height: 0 });
+  // Midpoints snapshotted at drag start — never change during the drag
+  const snapMidsRef = useRef<number[]>([]);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Clean up if edit mode turns off mid-drag
+  useEffect(() => {
+    draggingRef.current = null;
+    overIndexRef.current = null;
+    setDragIndex(null);
+    setOverIndex(null);
+    setGhostPos(null);
+  }, [nodeId, guideEditMode]);
 
   const node = nodes.find((n) => n.id === nodeId);
   if (!node) return null;
@@ -41,9 +108,84 @@ export function NodeCard({ nodeId }: Props) {
   const { label, description, nodeType } = node.data;
   const style = typeStyles[nodeType];
 
-  // Outgoing edges from this node
   const outgoing = edges.filter((e) => e.source === nodeId);
   const isDone = outgoing.length === 0;
+
+  // Live-reordered list for the visual preview
+  const displayOutgoing = (() => {
+    if (dragIndex === null || overIndex === null || dragIndex === overIndex) return outgoing;
+    const reordered = [...outgoing];
+    const [moved] = reordered.splice(dragIndex, 1);
+    reordered.splice(overIndex, 0, moved);
+    return reordered;
+  })();
+
+  const draggedEdgeId = dragIndex !== null ? outgoing[dragIndex]?.id : null;
+
+  const handleDragStart = (e: React.PointerEvent<HTMLDivElement>, originalIndex: number) => {
+    e.preventDefault();
+
+    // Snapshot midpoints of every item before anything shifts
+    snapMidsRef.current = itemRefs.current.map((ref) => {
+      const rect = ref?.getBoundingClientRect();
+      return rect ? rect.top + rect.height / 2 : 0;
+    });
+
+    const itemEl = itemRefs.current[originalIndex];
+    if (itemEl) {
+      const rect = itemEl.getBoundingClientRect();
+      dragOffsetRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      ghostSizeRef.current = { width: rect.width, height: rect.height };
+    }
+
+    draggingRef.current = originalIndex;
+    overIndexRef.current = originalIndex;
+    setDragIndex(originalIndex);
+    setOverIndex(originalIndex);
+    setGhostPos({ x: e.clientX, y: e.clientY });
+
+    // Use window listeners so movement is tracked anywhere on screen
+    const onMove = (ev: PointerEvent) => {
+      setGhostPos({ x: ev.clientX, y: ev.clientY });
+
+      const y = ev.clientY;
+      let newOver = draggingRef.current!;
+      let closestDist = Infinity;
+      snapMidsRef.current.forEach((mid, idx) => {
+        const dist = Math.abs(y - mid);
+        if (dist < closestDist) {
+          closestDist = dist;
+          newOver = idx;
+        }
+      });
+
+      if (newOver !== overIndexRef.current) {
+        overIndexRef.current = newOver;
+        setOverIndex(newOver);
+      }
+    };
+
+    const onUp = () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+
+      if (draggingRef.current !== null && overIndexRef.current !== null && draggingRef.current !== overIndexRef.current) {
+        reorderEdges(nodeId, draggingRef.current, overIndexRef.current);
+      }
+
+      draggingRef.current = null;
+      overIndexRef.current = null;
+      setDragIndex(null);
+      setOverIndex(null);
+      setGhostPos(null);
+    };
+
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+  };
+
+  const ghostEdge = dragIndex !== null ? outgoing[dragIndex] : null;
+  const ghostTarget = ghostEdge ? nodes.find((n) => n.id === ghostEdge.target) : null;
 
   return (
     <div className="w-full max-w-xl flex flex-col gap-6">
@@ -54,15 +196,9 @@ export function NodeCard({ nodeId }: Props) {
             {style.icon} {style.badgeText}
           </span>
         </div>
-
-        <h2 className="text-xl font-bold text-gray-900 leading-snug mb-3">
-          {label}
-        </h2>
-
+        <h2 className="text-xl font-bold text-gray-900 leading-snug mb-3">{label}</h2>
         {description && (
-          <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-            {description}
-          </p>
+          <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{description}</p>
         )}
       </div>
 
@@ -70,30 +206,77 @@ export function NodeCard({ nodeId }: Props) {
       {!isDone && (
         <div className="flex flex-col gap-2">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-1">
-            {outgoing.length === 1 ? 'Next step' : 'Choose a path'}
+            {guideEditMode ? 'Drag to reorder' : (outgoing.length === 1 ? 'Next step' : 'Choose a path')}
           </p>
-          {outgoing.map((edge) => {
+
+          {displayOutgoing.map((edge, displayIdx) => {
             const target = nodes.find((n) => n.id === edge.target);
             if (!target) return null;
             const edgeLabel = typeof edge.label === 'string' && edge.label
               ? edge.label
               : target.data.label;
-            const btnStyle = nextButtonStyles[target.data.nodeType];
+            const targetLabel = typeof edge.label === 'string' && edge.label
+              ? target.data.label
+              : undefined;
+            const isDragging = edge.id === draggedEdgeId;
+            const originalIndex = outgoing.findIndex((o) => o.id === edge.id);
+
             return (
-              <button
+              <div
                 key={edge.id}
-                onClick={() => guideStep(edge.target, typeof edge.label === 'string' ? edge.label : undefined)}
-                className={`w-full rounded-xl border-2 px-5 py-3.5 text-left font-medium text-sm transition-colors ${btnStyle}`}
+                ref={(el) => { itemRefs.current[displayIdx] = el; }}
+                style={{ touchAction: 'none' }}
+                onPointerDown={guideEditMode ? (e) => handleDragStart(e, originalIndex) : undefined}
               >
-                <span className="block">{edgeLabel}</span>
-                {typeof edge.label === 'string' && edge.label && (
-                  <span className="block text-xs font-normal opacity-60 mt-0.5">
-                    {target.data.label}
-                  </span>
+                {guideEditMode ? (
+                  isDragging ? (
+                    <div
+                      className="rounded-xl border-2 border-dashed border-gray-200"
+                      style={{ height: ghostSizeRef.current.height || undefined }}
+                    />
+                  ) : (
+                    <OptionContent
+                      edgeLabel={edgeLabel}
+                      targetLabel={targetLabel}
+                      nodeType={target.data.nodeType}
+                    />
+                  )
+                ) : (
+                  <button
+                    onClick={() => guideStep(edge.target, typeof edge.label === 'string' ? edge.label : undefined)}
+                    className={`w-full rounded-xl border-2 px-5 py-3.5 text-left font-medium text-sm transition-colors ${nextButtonStyles[target.data.nodeType]}`}
+                  >
+                    <span className="block">{edgeLabel}</span>
+                    {targetLabel && (
+                      <span className="block text-xs font-normal opacity-60 mt-0.5">{targetLabel}</span>
+                    )}
+                  </button>
                 )}
-              </button>
+              </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Ghost: flat clone following the pointer */}
+      {ghostPos && ghostEdge && ghostTarget && (
+        <div
+          className="fixed pointer-events-none z-50 shadow-2xl"
+          style={{
+            left: ghostPos.x - dragOffsetRef.current.x,
+            top: ghostPos.y - dragOffsetRef.current.y,
+            width: ghostSizeRef.current.width,
+          }}
+        >
+          <OptionContent
+            edgeLabel={typeof ghostEdge.label === 'string' && ghostEdge.label
+              ? ghostEdge.label
+              : ghostTarget.data.label}
+            targetLabel={typeof ghostEdge.label === 'string' && ghostEdge.label
+              ? ghostTarget.data.label
+              : undefined}
+            nodeType={ghostTarget.data.nodeType}
+          />
         </div>
       )}
 
@@ -106,21 +289,23 @@ export function NodeCard({ nodeId }: Props) {
       )}
 
       {/* Controls */}
-      <div className="flex gap-3 justify-between pt-2">
-        <button
-          onClick={guideBack}
-          disabled={wizardHistory.length === 0}
-          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          ← Back
-        </button>
-        <button
-          onClick={restartGuide}
-          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
-        >
-          ↺ Restart
-        </button>
-      </div>
+      {!guideEditMode && (
+        <div className="flex gap-3 justify-between pt-2">
+          <button
+            onClick={guideBack}
+            disabled={wizardHistory.length === 0}
+            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            ← Back
+          </button>
+          <button
+            onClick={restartGuide}
+            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
+          >
+            ↺ Restart
+          </button>
+        </div>
+      )}
     </div>
   );
 }

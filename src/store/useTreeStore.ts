@@ -49,12 +49,16 @@ interface TreeState {
   savedAt: number | null;
   guideHistoryOpen: boolean;
   setGuideHistoryOpen: (open: boolean) => void;
+  guideEditMode: boolean;
+  setGuideEditMode: (v: boolean) => void;
+  reorderEdges: (sourceId: string, fromIndex: number, toIndex: number) => void;
   // Guide / wizard
   wizardCurrentId: string | null;
   wizardHistory: WizardStep[];
   startGuide: () => void;
   guideStep: (nodeId: string, choiceLabel?: string) => void;
   guideBack: () => void;
+  guideGoTo: (index: number) => void;
   restartGuide: () => void;
 }
 
@@ -65,6 +69,7 @@ export const useTreeStore = create<TreeState>((set) => ({
   selection: { type: 'none', id: null },
   savedAt: null,
   guideHistoryOpen: false,
+  guideEditMode: false,
   wizardCurrentId: null,
   wizardHistory: [],
 
@@ -172,6 +177,26 @@ export const useTreeStore = create<TreeState>((set) => ({
     set({ guideHistoryOpen: open });
   },
 
+  setGuideEditMode: (v) => {
+    set({ guideEditMode: v });
+  },
+
+  reorderEdges: (sourceId, fromIndex, toIndex) => {
+    set((state) => {
+      const outgoing = state.edges
+        .map((e, i) => ({ edge: e, i }))
+        .filter(({ edge }) => edge.source === sourceId);
+      const reordered = [...outgoing];
+      const [moved] = reordered.splice(fromIndex, 1);
+      reordered.splice(toIndex, 0, moved);
+      const result = [...state.edges];
+      outgoing.forEach(({ i }, slot) => {
+        result[i] = reordered[slot].edge;
+      });
+      return { edges: result };
+    });
+  },
+
   startGuide: () => {
     const { nodes, edges } = useTreeStore.getState();
     const targetIds = new Set(edges.map((e) => e.target));
@@ -197,6 +222,18 @@ export const useTreeStore = create<TreeState>((set) => ({
       return {
         wizardCurrentId: prev.nodeId,
         wizardHistory: state.wizardHistory.slice(0, -1),
+        guideHistoryOpen: false,
+      };
+    });
+  },
+
+  guideGoTo: (index) => {
+    set((state) => {
+      const step = state.wizardHistory[index];
+      if (!step) return {};
+      return {
+        wizardCurrentId: step.nodeId,
+        wizardHistory: state.wizardHistory.slice(0, index),
         guideHistoryOpen: false,
       };
     });

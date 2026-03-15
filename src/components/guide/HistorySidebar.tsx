@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function HistorySidebar({ hideHeader }: Props = {}) {
-  const { wizardHistory, wizardCurrentId, nodes, guideBack } = useTreeStore();
+  const { wizardHistory, wizardCurrentId, nodes, guideGoTo } = useTreeStore();
 
   // Nothing to show until at least one step has been taken
   if (wizardHistory.length === 0) {
@@ -46,21 +46,19 @@ export function HistorySidebar({ hideHeader }: Props = {}) {
             const node = nodes.find((n) => n.id === step.nodeId);
             if (!node) return null;
             const dot = dotColor[node.data.nodeType];
-            const isClickable = i === wizardHistory.length - 1;
 
             return (
               <li key={`${step.nodeId}-${i}`} className="flex flex-col">
-                {/* Step row */}
                 <button
-                  onClick={isClickable ? guideBack : undefined}
-                  className={`flex items-start gap-2.5 text-left group ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
+                  onClick={() => guideGoTo(i)}
+                  className="flex items-start gap-2.5 text-left group cursor-pointer"
                 >
                   <div className="flex flex-col items-center shrink-0 mt-1">
                     <span className={`w-2 h-2 rounded-full ${dot} opacity-60`} />
                     <span className="w-px flex-1 bg-gray-200 mt-1" style={{ minHeight: 16 }} />
                   </div>
                   <div className="pb-1 min-w-0">
-                    <p className={`text-xs leading-snug text-gray-500 ${isClickable ? 'group-hover:text-gray-800' : ''} line-clamp-2`}>
+                    <p className="text-xs leading-snug text-gray-500 group-hover:text-gray-800 line-clamp-2">
                       {node.data.label}
                     </p>
                     {step.choiceLabel && (

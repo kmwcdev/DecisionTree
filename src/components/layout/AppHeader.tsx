@@ -12,7 +12,7 @@ function HamburgerIcon() {
 }
 
 export function AppHeader() {
-  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen } = useTreeStore();
+  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen, guideEditMode, setGuideEditMode } = useTreeStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -63,6 +63,22 @@ export function AppHeader() {
         Labor Decision Tree
       </h1>
 
+      {mode === 'guide' && (
+        <Button
+          variant={guideEditMode ? 'primary' : 'secondary'}
+          size="sm"
+          onClick={() => setGuideEditMode(!guideEditMode)}
+        >
+          {guideEditMode ? 'Done' : 'Reorder'}
+        </Button>
+      )}
+      <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
+        Export
+      </Button>
+      <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
+        Import
+      </Button>
+
       {/* Mode toggle — hidden on mobile */}
       <div className="hidden sm:flex rounded-md border border-gray-300 overflow-hidden text-xs font-medium">
         <button
@@ -96,14 +112,6 @@ export function AppHeader() {
           Guide
         </button>
       </div>
-
-
-      <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
-        Export
-      </Button>
-      <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
-        Import
-      </Button>
       <input
         ref={fileInputRef}
         type="file"
