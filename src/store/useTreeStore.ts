@@ -182,6 +182,7 @@ export const useTreeStore = create<TreeState>((set) => ({
       localStorage.setItem('labor-dark-mode', String(next));
       if (next) document.documentElement.classList.add('dark');
       else document.documentElement.classList.remove('dark');
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next ? '#111827' : '#ffffff');
       return { darkMode: next };
     });
   },
