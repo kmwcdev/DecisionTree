@@ -16,6 +16,7 @@ export function CustomEdge({
   label,
   markerEnd,
   style,
+  selected,
 }: EdgeProps<LaborEdgeData>) {
   const { mode, darkMode, updateEdge, setSelection } = useTreeStore();
   const { getZoom } = useReactFlow();
@@ -98,7 +99,7 @@ export function CustomEdge({
       <path
         d={edgePath}
         fill="none"
-        style={style}
+        style={{ ...style, strokeWidth: selected && mode === 'editor' ? 3 : 1.5 }}
         markerEnd={markerEnd as string}
       />
 
