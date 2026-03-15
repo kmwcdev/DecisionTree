@@ -4,41 +4,41 @@ import type { NodeType } from '../../types';
 
 const typeStyles: Record<NodeType, { border: string; badge: string; badgeText: string; icon: string }> = {
   decision: {
-    border: 'border-amber-400',
-    badge: 'bg-amber-100 text-amber-800',
+    border: 'border-amber-400 dark:border-amber-600',
+    badge: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
     badgeText: 'Decision',
     icon: '◇',
   },
   action: {
-    border: 'border-blue-400',
-    badge: 'bg-blue-100 text-blue-800',
+    border: 'border-blue-400 dark:border-blue-600',
+    badge: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300',
     badgeText: 'Action',
     icon: '▢',
   },
   info: {
-    border: 'border-gray-300',
-    badge: 'bg-gray-100 text-gray-700',
+    border: 'border-gray-300 dark:border-gray-600',
+    badge: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
     badgeText: 'Info',
     icon: 'ℹ',
   },
 };
 
 const nextButtonStyles: Record<NodeType, string> = {
-  decision: 'border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 hover:border-amber-400',
-  action: 'border-blue-300 bg-blue-50 text-blue-900 hover:bg-blue-100 hover:border-blue-400',
-  info: 'border-gray-300 bg-white text-gray-800 hover:bg-gray-50 hover:border-gray-400',
+  decision: 'border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 hover:border-amber-400 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-200 dark:hover:bg-amber-900/50',
+  action: 'border-blue-300 bg-blue-50 text-blue-900 hover:bg-blue-100 hover:border-blue-400 dark:border-blue-700 dark:bg-blue-900/30 dark:text-blue-200 dark:hover:bg-blue-900/50',
+  info: 'border-gray-300 bg-white text-gray-800 hover:bg-gray-50 hover:border-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600',
 };
 
 const nextButtonBorderStyle: Record<NodeType, string> = {
-  decision: 'border-amber-300',
-  action: 'border-blue-300',
-  info: 'border-gray-300',
+  decision: 'border-amber-300 dark:border-amber-700',
+  action: 'border-blue-300 dark:border-blue-700',
+  info: 'border-gray-300 dark:border-gray-600',
 };
 
 const nextButtonContentStyle: Record<NodeType, string> = {
-  decision: 'bg-amber-50 text-amber-900',
-  action: 'bg-blue-50 text-blue-900',
-  info: 'bg-white text-gray-800',
+  decision: 'bg-amber-50 text-amber-900 dark:bg-amber-900/30 dark:text-amber-200',
+  action: 'bg-blue-50 text-blue-900 dark:bg-blue-900/30 dark:text-blue-200',
+  info: 'bg-white text-gray-800 dark:bg-gray-700 dark:text-gray-200',
 };
 
 function GripIcon() {
@@ -61,7 +61,7 @@ function OptionContent({ edgeLabel, targetLabel, nodeType }: {
 }) {
   return (
     <div className={`flex rounded-xl border-2 overflow-hidden ${nextButtonBorderStyle[nodeType]}`}>
-      <div className="flex items-center justify-center px-3 bg-gray-50 text-gray-300 border-r border-gray-200 cursor-grab active:cursor-grabbing select-none">
+      <div className="flex items-center justify-center px-3 bg-gray-50 dark:bg-gray-700 text-gray-300 dark:text-gray-500 border-r border-gray-200 dark:border-gray-600 cursor-grab active:cursor-grabbing select-none">
         <GripIcon />
       </div>
       <div className={`flex-1 px-5 py-3.5 font-medium text-sm ${nextButtonContentStyle[nodeType]}`}>
@@ -89,11 +89,9 @@ export function NodeCard({ nodeId }: Props) {
   const overIndexRef = useRef<number | null>(null);
   const dragOffsetRef = useRef({ x: 0, y: 0 });
   const ghostSizeRef = useRef({ width: 0, height: 0 });
-  // Midpoints snapshotted at drag start — never change during the drag
   const snapMidsRef = useRef<number[]>([]);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Clean up if edit mode turns off mid-drag
   useEffect(() => {
     draggingRef.current = null;
     overIndexRef.current = null;
@@ -111,7 +109,6 @@ export function NodeCard({ nodeId }: Props) {
   const outgoing = edges.filter((e) => e.source === nodeId);
   const isDone = outgoing.length === 0;
 
-  // Live-reordered list for the visual preview
   const displayOutgoing = (() => {
     if (dragIndex === null || overIndex === null || dragIndex === overIndex) return outgoing;
     const reordered = [...outgoing];
@@ -125,7 +122,6 @@ export function NodeCard({ nodeId }: Props) {
   const handleDragStart = (e: React.PointerEvent<HTMLDivElement>, originalIndex: number) => {
     e.preventDefault();
 
-    // Snapshot midpoints of every item before anything shifts
     snapMidsRef.current = itemRefs.current.map((ref) => {
       const rect = ref?.getBoundingClientRect();
       return rect ? rect.top + rect.height / 2 : 0;
@@ -144,7 +140,6 @@ export function NodeCard({ nodeId }: Props) {
     setOverIndex(originalIndex);
     setGhostPos({ x: e.clientX, y: e.clientY });
 
-    // Use window listeners so movement is tracked anywhere on screen
     const onMove = (ev: PointerEvent) => {
       setGhostPos({ x: ev.clientX, y: ev.clientY });
 
@@ -190,22 +185,22 @@ export function NodeCard({ nodeId }: Props) {
   return (
     <div className="w-full max-w-xl flex flex-col gap-6">
       {/* Card */}
-      <div className={`bg-white rounded-2xl border-2 ${style.border} shadow-sm p-8`}>
+      <div className={`bg-white dark:bg-gray-800 rounded-2xl border-2 ${style.border} shadow-sm p-8`}>
         <div className="flex items-center gap-2 mb-4">
           <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${style.badge}`}>
             {style.icon} {style.badgeText}
           </span>
         </div>
-        <h2 className="text-xl font-bold text-gray-900 leading-snug mb-3">{label}</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug mb-3">{label}</h2>
         {description && (
-          <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{description}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-line">{description}</p>
         )}
       </div>
 
       {/* Next steps */}
       {!isDone && (
         <div className="flex flex-col gap-2">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-1">
+          <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide px-1">
             {guideEditMode ? 'Drag to reorder' : (outgoing.length === 1 ? 'Next step' : 'Choose a path')}
           </p>
 
@@ -231,7 +226,7 @@ export function NodeCard({ nodeId }: Props) {
                 {guideEditMode ? (
                   isDragging ? (
                     <div
-                      className="rounded-xl border-2 border-dashed border-gray-200"
+                      className="rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-600"
                       style={{ height: ghostSizeRef.current.height || undefined }}
                     />
                   ) : (
@@ -282,9 +277,9 @@ export function NodeCard({ nodeId }: Props) {
 
       {/* Done state */}
       {isDone && (
-        <div className="rounded-xl border-2 border-green-300 bg-green-50 px-5 py-4 text-center">
-          <p className="text-sm font-semibold text-green-800">End of this path</p>
-          <p className="text-xs text-green-600 mt-0.5">You've reached the last step.</p>
+        <div className="rounded-xl border-2 border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20 px-5 py-4 text-center">
+          <p className="text-sm font-semibold text-green-800 dark:text-green-300">End of this path</p>
+          <p className="text-xs text-green-600 dark:text-green-400 mt-0.5">You've reached the last step.</p>
         </div>
       )}
 
@@ -294,13 +289,13 @@ export function NodeCard({ nodeId }: Props) {
           <button
             onClick={guideBack}
             disabled={wizardHistory.length === 0}
-            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             ← Back
           </button>
           <button
             onClick={restartGuide}
-            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
           >
             ↺ Restart
           </button>

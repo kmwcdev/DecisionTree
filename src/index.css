@@ -26,3 +26,24 @@ html, body, #root {
 .react-flow__attribution {
   display: none;
 }
+
+/* ReactFlow dark mode overrides */
+.dark .react-flow__controls {
+  background: #1f2937;
+  border-color: #374151;
+  box-shadow: none;
+}
+.dark .react-flow__controls-button {
+  background: #1f2937;
+  border-color: #374151;
+  fill: #d1d5db;
+}
+.dark .react-flow__controls-button:hover {
+  background: #374151;
+}
+.dark .react-flow__minimap {
+  background: #1f2937;
+}
+.dark .react-flow__minimap-mask {
+  fill: rgba(17, 24, 39, 0.6);
+}

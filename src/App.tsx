@@ -13,6 +13,13 @@ function App() {
     }
   }, [setMode]);
 
+  // Apply dark class on initial load from persisted preference
+  useEffect(() => {
+    if (useTreeStore.getState().darkMode) {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
   return <AppLayout />;
 }
 

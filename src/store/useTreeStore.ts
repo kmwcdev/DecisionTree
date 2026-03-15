@@ -47,6 +47,8 @@ interface TreeState {
   setSelection: (selection: EditorSelection) => void;
   clearSelection: () => void;
   savedAt: number | null;
+  darkMode: boolean;
+  toggleDarkMode: () => void;
   guideHistoryOpen: boolean;
   setGuideHistoryOpen: (open: boolean) => void;
   guideEditMode: boolean;
@@ -68,6 +70,7 @@ export const useTreeStore = create<TreeState>((set) => ({
   mode: 'view',
   selection: { type: 'none', id: null },
   savedAt: null,
+  darkMode: localStorage.getItem('labor-dark-mode') === 'true',
   guideHistoryOpen: false,
   guideEditMode: false,
   wizardCurrentId: null,
@@ -171,6 +174,16 @@ export const useTreeStore = create<TreeState>((set) => ({
 
   clearSelection: () => {
     set({ selection: { type: 'none', id: null } });
+  },
+
+  toggleDarkMode: () => {
+    set((state) => {
+      const next = !state.darkMode;
+      localStorage.setItem('labor-dark-mode', String(next));
+      if (next) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+      return { darkMode: next };
+    });
   },
 
   setGuideHistoryOpen: (open) => {

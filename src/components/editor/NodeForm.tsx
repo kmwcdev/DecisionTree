@@ -34,7 +34,7 @@ export function NodeForm({ nodeId }: Props) {
     }
   }, [nodeId, node]);
 
-  if (!node) return <p className="text-sm text-gray-400">Node not found.</p>;
+  if (!node) return <p className="text-sm text-gray-400 dark:text-gray-500">Node not found.</p>;
 
   const handleSave = () => {
     updateNode(nodeId, { label, description, nodeType });
@@ -43,7 +43,7 @@ export function NodeForm({ nodeId }: Props) {
 
   return (
     <div className="flex flex-col gap-3 flex-1 min-h-0">
-      <h3 className="text-sm font-semibold text-gray-700">Edit Node</h3>
+      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Edit Node</h3>
 
       <Select
         id="node-type"

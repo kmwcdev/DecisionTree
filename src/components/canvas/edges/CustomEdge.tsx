@@ -17,7 +17,7 @@ export function CustomEdge({
   markerEnd,
   style,
 }: EdgeProps<LaborEdgeData>) {
-  const { mode, updateEdge, setSelection } = useTreeStore();
+  const { mode, darkMode, updateEdge, setSelection } = useTreeStore();
   const { getZoom } = useReactFlow();
 
   const [edgePath, labelX, labelY] = getSmoothStepPath({
@@ -122,11 +122,11 @@ export function CustomEdge({
               pointerEvents: 'none',
               fontSize: 10,
               fontWeight: 600,
-              background: 'white',
+              background: darkMode ? '#1f2937' : 'white',
               padding: '1px 5px',
               borderRadius: 4,
-              color: '#6b7280',
-              border: '1px solid #e5e7eb',
+              color: darkMode ? '#9ca3af' : '#6b7280',
+              border: darkMode ? '1px solid #374151' : '1px solid #e5e7eb',
               whiteSpace: 'nowrap',
             }}
           >

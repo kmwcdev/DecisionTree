@@ -28,6 +28,7 @@ export function FlowCanvas() {
     nodes,
     edges,
     mode,
+    darkMode,
     onNodesChange,
     onEdgesChange,
     onConnect,
@@ -35,7 +36,6 @@ export function FlowCanvas() {
     clearSelection,
   } = useTreeStore();
 
-  // Ensure every edge (including ones loaded from JSON) uses the custom type
   const typedEdges = useMemo(
     () => edges.map((e) => (e.type ? e : { ...e, type: 'custom' })),
     [edges]
@@ -69,8 +69,12 @@ export function FlowCanvas() {
     []
   );
 
+  const bgColor = darkMode
+    ? (mode === 'editor' ? '#374151' : '#4b5563')
+    : (mode === 'editor' ? '#e5e7eb' : '#d1d5db');
+
   return (
-    <div className="flex-1 h-full">
+    <div className="flex-1 h-full bg-white dark:bg-gray-900">
       <ReactFlow
         nodes={nodes}
         edges={typedEdges}
@@ -102,18 +106,25 @@ export function FlowCanvas() {
           variant={mode === 'editor' ? BackgroundVariant.Lines : BackgroundVariant.Dots}
           gap={20}
           size={1}
-          color={mode === 'editor' ? '#e5e7eb' : '#d1d5db'}
+          color={bgColor}
         />
         <Controls />
         <MiniMap
           nodeColor={(node) => {
+            if (darkMode) {
+              switch (node.type) {
+                case 'decision': return '#78350f';
+                case 'action': return '#1e3a8a';
+                default: return '#374151';
+              }
+            }
             switch (node.type) {
               case 'decision': return '#fef3c7';
               case 'action': return '#dbeafe';
               default: return '#f3f4f6';
             }
           }}
-          className="!bg-white !border !border-gray-200"
+          className={darkMode ? '!bg-gray-800 !border !border-gray-700' : '!bg-white !border !border-gray-200'}
         />
       </ReactFlow>
     </div>

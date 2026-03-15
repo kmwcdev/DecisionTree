@@ -7,10 +7,10 @@ export function EditorSidebar() {
   const { selection } = useTreeStore();
 
   return (
-    <aside className="w-64 shrink-0 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
-      <div className="p-4 border-b border-gray-200 shrink-0">
-        <h2 className="text-sm font-bold text-gray-800">Editor</h2>
-        <p className="text-xs text-gray-500 mt-0.5">
+    <aside className="w-64 shrink-0 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden">
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700 shrink-0">
+        <h2 className="text-sm font-bold text-gray-800 dark:text-gray-200">Editor</h2>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
           {selection.type === 'none'
             ? 'Select a node or connection to edit it.'
             : selection.type === 'node'

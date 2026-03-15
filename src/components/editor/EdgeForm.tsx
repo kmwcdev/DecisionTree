@@ -21,7 +21,7 @@ export function EdgeForm({ edgeId }: Props) {
     }
   }, [edgeId, edge]);
 
-  if (!edge) return <p className="text-sm text-gray-400">Edge not found.</p>;
+  if (!edge) return <p className="text-sm text-gray-400 dark:text-gray-500">Edge not found.</p>;
 
   const handleSave = () => {
     updateEdge(edgeId, { label });
@@ -30,7 +30,7 @@ export function EdgeForm({ edgeId }: Props) {
 
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-sm font-semibold text-gray-700">Edit Connection</h3>
+      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Edit Connection</h3>
 
       <Input
         id="edge-label"
