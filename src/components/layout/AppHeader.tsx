@@ -79,7 +79,7 @@ export function AppHeader() {
         Decision Tree
       </h1>
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2">
         {mode === 'guide' && (
           <Button
             variant={guideEditMode ? 'primary' : 'secondary'}
