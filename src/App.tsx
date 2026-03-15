@@ -13,10 +13,11 @@ function App() {
     }
   }, [setMode]);
 
-  // Apply dark class and theme-color on initial load from persisted preference
+  // Apply dark class, color-scheme, and theme-color on initial load from persisted preference
   useEffect(() => {
     if (useTreeStore.getState().darkMode) {
       document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
       document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#111827');
     }
   }, []);
