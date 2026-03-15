@@ -47,6 +47,8 @@ interface TreeState {
   setSelection: (selection: EditorSelection) => void;
   clearSelection: () => void;
   savedAt: number | null;
+  guideHistoryOpen: boolean;
+  setGuideHistoryOpen: (open: boolean) => void;
   // Guide / wizard
   wizardCurrentId: string | null;
   wizardHistory: WizardStep[];
@@ -62,6 +64,7 @@ export const useTreeStore = create<TreeState>((set) => ({
   mode: 'view',
   selection: { type: 'none', id: null },
   savedAt: null,
+  guideHistoryOpen: false,
   wizardCurrentId: null,
   wizardHistory: [],
 
@@ -165,6 +168,10 @@ export const useTreeStore = create<TreeState>((set) => ({
     set({ selection: { type: 'none', id: null } });
   },
 
+  setGuideHistoryOpen: (open) => {
+    set({ guideHistoryOpen: open });
+  },
+
   startGuide: () => {
     const { nodes, edges } = useTreeStore.getState();
     const targetIds = new Set(edges.map((e) => e.target));
@@ -179,6 +186,7 @@ export const useTreeStore = create<TreeState>((set) => ({
         { nodeId: state.wizardCurrentId!, choiceLabel },
       ],
       wizardCurrentId: nodeId,
+      guideHistoryOpen: false,
     }));
   },
 
@@ -189,6 +197,7 @@ export const useTreeStore = create<TreeState>((set) => ({
       return {
         wizardCurrentId: prev.nodeId,
         wizardHistory: state.wizardHistory.slice(0, -1),
+        guideHistoryOpen: false,
       };
     });
   },

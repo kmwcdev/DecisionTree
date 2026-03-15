@@ -3,8 +3,16 @@ import { Button } from '../ui/Button';
 import type { TreeSchema } from '../../types';
 import { useRef } from 'react';
 
+function HamburgerIcon() {
+  return (
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  );
+}
+
 export function AppHeader() {
-  const { mode, setMode, loadTree } = useTreeStore();
+  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen } = useTreeStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -42,6 +50,15 @@ export function AppHeader() {
 
   return (
     <header className="h-12 shrink-0 bg-white border-b border-gray-200 flex items-center px-4 gap-4">
+      {mode === 'guide' && (
+        <button
+          className="sm:hidden p-1.5 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors"
+          onClick={() => setGuideHistoryOpen(!guideHistoryOpen)}
+          aria-label="Show path history"
+        >
+          <HamburgerIcon />
+        </button>
+      )}
       <h1 className="text-base font-bold text-gray-900 mr-auto">
         Labor Decision Tree
       </h1>

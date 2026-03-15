@@ -7,16 +7,22 @@ const dotColor: Record<NodeType, string> = {
   info: 'bg-gray-400',
 };
 
-export function HistorySidebar() {
+interface Props {
+  hideHeader?: boolean;
+}
+
+export function HistorySidebar({ hideHeader }: Props = {}) {
   const { wizardHistory, wizardCurrentId, nodes, guideBack } = useTreeStore();
 
   // Nothing to show until at least one step has been taken
   if (wizardHistory.length === 0) {
     return (
       <aside className="w-52 shrink-0 border-r border-gray-200 bg-white flex flex-col">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Path so far</h2>
-        </div>
+        {!hideHeader && (
+          <div className="p-4 border-b border-gray-200">
+            <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Path so far</h2>
+          </div>
+        )}
         <div className="flex-1 flex items-center justify-center p-4">
           <p className="text-xs text-gray-400 text-center">Your path will appear here as you make choices.</p>
         </div>
@@ -28,9 +34,11 @@ export function HistorySidebar() {
 
   return (
     <aside className="w-52 shrink-0 border-r border-gray-200 bg-white flex flex-col overflow-hidden">
-      <div className="p-4 border-b border-gray-200 shrink-0">
-        <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Path so far</h2>
-      </div>
+      {!hideHeader && (
+        <div className="p-4 border-b border-gray-200 shrink-0">
+          <h2 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Path so far</h2>
+        </div>
+      )}
 
       <div className="flex-1 overflow-y-auto p-4">
         <ol className="flex flex-col gap-0">
