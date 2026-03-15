@@ -220,7 +220,7 @@ export function NodeCard({ nodeId }: Props) {
               <div
                 key={edge.id}
                 ref={(el) => { itemRefs.current[displayIdx] = el; }}
-                style={{ touchAction: 'none' }}
+                style={{ touchAction: guideEditMode ? 'none' : 'pan-y' }}
                 onPointerDown={guideEditMode ? (e) => handleDragStart(e, originalIndex) : undefined}
               >
                 {guideEditMode ? (
