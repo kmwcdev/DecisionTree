@@ -122,7 +122,9 @@ export const useTreeStore = create<TreeState>((set) => ({
   updateNode: (id, data) => {
     set((state) => ({
       nodes: state.nodes.map((n) =>
-        n.id === id ? { ...n, data: { ...n.data, ...data } } : n
+        n.id === id
+          ? { ...n, type: data.nodeType ?? n.type, data: { ...n.data, ...data } }
+          : n
       ),
     }));
   },
