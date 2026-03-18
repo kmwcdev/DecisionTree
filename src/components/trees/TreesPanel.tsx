@@ -83,7 +83,7 @@ export function TreesPanel() {
       const schema = await fetchTreeBin(entry.binId);
       loadTree(schema);
       setCurrentTreeMeta(entry);
-      setMode('view');
+      setMode('guide');
     } catch {
       alert('Failed to load tree.');
     } finally {
