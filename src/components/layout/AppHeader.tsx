@@ -28,8 +28,8 @@ const desktopModes: ModeButton[] = [
 ];
 
 const mobileModes: ModeButton[] = [
-  { mode: 'view', label: 'View' },
   { mode: 'guide', label: 'Guide' },
+  { mode: 'view', label: 'View' },
   { mode: 'trees', label: 'Trees' },
   { mode: 'options', label: 'Options' },
 ];
