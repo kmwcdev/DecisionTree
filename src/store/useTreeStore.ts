@@ -16,6 +16,7 @@ import type {
   TreeSchema,
   NodeType,
   WizardStep,
+  TreeEntry,
 } from '../types';
 import { sampleTree } from '../data/sampleTree';
 
@@ -41,6 +42,8 @@ interface TreeState {
 
   // Tree
   loadTree: (schema: TreeSchema) => void;
+  currentTreeMeta: TreeEntry | null;
+  setCurrentTreeMeta: (meta: TreeEntry | null) => void;
 
   // UI
   setMode: (mode: AppMode) => void;
@@ -70,6 +73,7 @@ export const useTreeStore = create<TreeState>((set) => ({
   mode: 'view',
   selection: { type: 'none', id: null },
   savedAt: null,
+  currentTreeMeta: null,
   darkMode: localStorage.getItem('labor-dark-mode') === 'true',
   guideHistoryOpen: false,
   guideEditMode: false,
@@ -164,6 +168,10 @@ export const useTreeStore = create<TreeState>((set) => ({
       wizardCurrentId: root?.id ?? null,
       wizardHistory: [],
     });
+  },
+
+  setCurrentTreeMeta: (meta) => {
+    set({ currentTreeMeta: meta });
   },
 
   setMode: (mode) => {

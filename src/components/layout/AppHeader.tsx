@@ -1,7 +1,11 @@
+import { useState } from 'react';
+import { useRef } from 'react';
 import { useTreeStore, selectTree } from '../../store/useTreeStore';
 import { Button } from '../ui/Button';
-import type { TreeSchema } from '../../types';
-import { useRef } from 'react';
+import { SaveTreeModal } from '../trees/SaveTreeModal';
+import { saveIndex, createTreeBin, updateTreeBin, fetchTreeIndex } from '../../services/jsonbin';
+import { v4 as uuidv4 } from 'uuid';
+import type { TreeSchema, TreeEntry } from '../../types';
 
 function HamburgerIcon() {
   return (
@@ -29,8 +33,10 @@ function MoonIcon() {
 }
 
 export function AppHeader() {
-  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen, guideEditMode, setGuideEditMode, darkMode, toggleDarkMode } = useTreeStore();
+  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen, guideEditMode, setGuideEditMode, darkMode, toggleDarkMode, currentTreeMeta, setCurrentTreeMeta } = useTreeStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const handleExport = () => {
     const tree = selectTree(useTreeStore.getState());
@@ -64,6 +70,38 @@ export function AppHeader() {
     e.target.value = '';
   };
 
+  const handleSave = async (name: string, description: string, asNew: boolean) => {
+    setSaving(true);
+    try {
+      const tree = selectTree(useTreeStore.getState());
+      const now = new Date().toISOString();
+      const nodeCount = tree.nodes.length;
+
+      let updatedEntries: TreeEntry[];
+      let updatedMeta: TreeEntry;
+
+      const existing = await fetchTreeIndex();
+
+      if (currentTreeMeta && !asNew) {
+        await updateTreeBin(currentTreeMeta.binId, tree);
+        updatedMeta = { ...currentTreeMeta, name, description, modifiedAt: now, nodeCount };
+        updatedEntries = existing.map((e) => (e.id === currentTreeMeta.id ? updatedMeta : e));
+      } else {
+        const binId = await createTreeBin(tree, name);
+        updatedMeta = { id: uuidv4(), name, description, createdAt: now, modifiedAt: now, nodeCount, binId };
+        updatedEntries = [updatedMeta, ...existing];
+      }
+
+      await saveIndex(updatedEntries);
+      setCurrentTreeMeta(updatedMeta);
+      setSaveModalOpen(false);
+    } catch {
+      alert('Save failed. Check your API key and try again.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <header className="h-12 shrink-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center px-4 gap-4">
       {mode === 'guide' && (
@@ -89,6 +127,9 @@ export function AppHeader() {
             {guideEditMode ? 'Done' : 'Reorder'}
           </Button>
         )}
+        <Button variant="primary" size="sm" onClick={() => setSaveModalOpen(true)} className="hidden sm:inline-flex">
+          {currentTreeMeta ? 'Save' : 'Save as New'}
+        </Button>
         <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
           Export
         </Button>
@@ -129,6 +170,16 @@ export function AppHeader() {
         >
           Guide
         </button>
+        <button
+          onClick={() => setMode('trees')}
+          className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
+            mode === 'trees'
+              ? 'bg-blue-600 text-white'
+              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+          }`}
+        >
+          Trees
+        </button>
       </div>
 
       <button
@@ -145,6 +196,16 @@ export function AppHeader() {
         accept=".json,application/json"
         className="hidden"
         onChange={handleImport}
+      />
+
+      <SaveTreeModal
+        open={saveModalOpen}
+        initialName={currentTreeMeta?.name ?? ''}
+        initialDescription={currentTreeMeta?.description ?? ''}
+        canOverwrite={!!currentTreeMeta}
+        onSave={handleSave}
+        onCancel={() => setSaveModalOpen(false)}
+        loading={saving}
       />
     </header>
   );

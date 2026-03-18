@@ -1,6 +1,16 @@
 import type { Node, Edge } from 'reactflow';
 
-export type AppMode = 'view' | 'editor' | 'guide';
+export type AppMode = 'view' | 'editor' | 'guide' | 'trees';
+
+export interface TreeEntry {
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: string;
+  modifiedAt: string;
+  nodeCount: number;
+  binId: string;
+}
 
 export interface WizardStep {
   nodeId: string;
