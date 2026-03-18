@@ -7,8 +7,8 @@ export function GuideView() {
   const { startGuide, wizardCurrentId, guideHistoryOpen, setGuideHistoryOpen } = useTreeStore();
 
   useEffect(() => {
-    startGuide();
-  }, [startGuide]);
+    if (!wizardCurrentId) startGuide();
+  }, [startGuide, wizardCurrentId]);
 
   if (!wizardCurrentId) {
     return (
