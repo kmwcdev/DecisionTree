@@ -74,7 +74,7 @@ export const useTreeStore = create<TreeState>((set) => ({
   selection: { type: 'none', id: null },
   savedAt: null,
   currentTreeMeta: null,
-  darkMode: localStorage.getItem('labor-dark-mode') === 'true',
+  darkMode: localStorage.getItem('labor-dark-mode') !== 'false',
   guideHistoryOpen: false,
   guideEditMode: false,
   wizardCurrentId: null,

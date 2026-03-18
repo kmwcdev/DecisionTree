@@ -13,13 +13,12 @@ function App() {
     }
   }, [setMode]);
 
-  // Apply dark class, color-scheme, and theme-color on initial load from persisted preference
+  // Apply dark/light class, color-scheme, and theme-color on initial load
   useEffect(() => {
-    if (useTreeStore.getState().darkMode) {
-      document.documentElement.classList.add('dark');
-      document.documentElement.style.colorScheme = 'dark';
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#111827');
-    }
+    const dark = useTreeStore.getState().darkMode;
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#111827' : '#ffffff');
   }, []);
 
   return <AppLayout />;
