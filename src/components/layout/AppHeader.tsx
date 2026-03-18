@@ -33,7 +33,7 @@ function MoonIcon() {
 }
 
 export function AppHeader() {
-  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen, guideEditMode, setGuideEditMode, darkMode, toggleDarkMode, currentTreeMeta, setCurrentTreeMeta } = useTreeStore();
+  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen, darkMode, toggleDarkMode, currentTreeMeta, setCurrentTreeMeta } = useTreeStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
