@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '../ui/Button';
+import { Modal } from '../ui/Modal';
 import { SaveTreeModal } from './SaveTreeModal';
 import { useTreeStore, selectTree } from '../../store/useTreeStore';
 import {
@@ -24,6 +25,7 @@ export function TreesPanel() {
   const [newIndexBinId, setNewIndexBinId] = useState<string | null>(null);
   const [openingId, setOpeningId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [confirmEntry, setConfirmEntry] = useState<TreeEntry | null>(null);
 
   useEffect(() => {
     load();
@@ -91,8 +93,10 @@ export function TreesPanel() {
     }
   }
 
-  async function handleDelete(entry: TreeEntry) {
-    if (!confirm(`Delete "${entry.name}"? This cannot be undone.`)) return;
+  async function confirmDelete() {
+    if (!confirmEntry) return;
+    const entry = confirmEntry;
+    setConfirmEntry(null);
     setDeletingId(entry.id);
     try {
       await deleteTreeBin(entry.binId);
@@ -194,7 +198,7 @@ export function TreesPanel() {
                       <Button
                         size="sm"
                         variant="danger"
-                        onClick={() => handleDelete(entry)}
+                        onClick={() => setConfirmEntry(entry)}
                         disabled={!!openingId || !!deletingId}
                       >
                         {deletingId === entry.id ? '…' : 'Delete'}
@@ -207,6 +211,16 @@ export function TreesPanel() {
           </table>
         )}
       </div>
+
+      <Modal
+        open={!!confirmEntry}
+        title="Delete tree?"
+        description={`"${confirmEntry?.name}" will be permanently deleted. This cannot be undone.`}
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        onConfirm={confirmDelete}
+        onCancel={() => setConfirmEntry(null)}
+      />
 
       <SaveTreeModal
         open={saveModalOpen}
