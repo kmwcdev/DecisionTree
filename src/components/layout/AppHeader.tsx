@@ -1,4 +1,5 @@
 import { useTreeStore } from '../../store/useTreeStore';
+import type { AppMode } from '../../types';
 
 function AppIcon() {
   return (
@@ -23,7 +24,7 @@ function HamburgerIcon() {
   );
 }
 
-type ModeButton = { mode: Parameters<ReturnType<typeof useTreeStore>['setMode']>[0]; label: string };
+type ModeButton = { mode: AppMode; label: string };
 
 const desktopModes: ModeButton[] = [
   { mode: 'view', label: 'View' },
