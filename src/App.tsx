@@ -13,12 +13,11 @@ function App() {
     }
   }, [setMode]);
 
-  // Apply dark/light class, color-scheme, and theme-color on initial load
+  // Force dark mode always
   useEffect(() => {
-    const dark = useTreeStore.getState().darkMode;
-    document.documentElement.classList.toggle('dark', dark);
-    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#111827' : '#ffffff');
+    document.documentElement.classList.add('dark');
+    document.documentElement.style.colorScheme = 'dark';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#111827');
   }, []);
 
   return <AppLayout />;
