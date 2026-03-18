@@ -19,7 +19,7 @@ export function GuideView() {
   }
 
   return (
-    <div className="flex flex-1 overflow-hidden bg-gray-50 dark:bg-gray-900 relative">
+    <div className="flex flex-1 overflow-hidden bg-gray-50 dark:bg-gray-900">
       {/* Desktop history sidebar */}
       <div className="hidden sm:flex">
         <HistorySidebar />
@@ -50,16 +50,18 @@ export function GuideView() {
         </>
       )}
 
-      {/* Mobile hamburger — sticky to canvas top-left, outside scroll area */}
-      <button
-        className="sm:hidden absolute top-3 left-3 z-20 p-1.5 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-        onClick={() => setGuideHistoryOpen(!guideHistoryOpen)}
-        aria-label="Show path history"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+      {/* Mobile sidebar bar with hamburger */}
+      <div className="sm:hidden shrink-0 w-10 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col items-center pt-3">
+        <button
+          className="p-1.5 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          onClick={() => setGuideHistoryOpen(!guideHistoryOpen)}
+          aria-label="Show path history"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
 
       {/* Main content */}
       <div className="flex-1 overflow-y-auto" style={{ touchAction: 'pan-y' }}>
