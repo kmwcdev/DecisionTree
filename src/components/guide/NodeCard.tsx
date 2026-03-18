@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useTreeStore } from '../../store/useTreeStore';
+import { Input } from '../ui/Input';
 import type { NodeType } from '../../types';
 
 const typeStyles: Record<NodeType, { border: string; badge: string; badgeText: string; icon: string }> = {
@@ -54,6 +55,7 @@ function GripIcon() {
   );
 }
 
+
 function OptionContent({ edgeLabel, targetLabel, nodeType }: {
   edgeLabel: string;
   targetLabel?: string;
@@ -79,7 +81,11 @@ interface Props {
 }
 
 export function NodeCard({ nodeId }: Props) {
-  const { nodes, edges, guideStep, guideBack, restartGuide, wizardHistory, guideEditMode, reorderEdges } = useTreeStore();
+  const { nodes, edges, guideStep, guideBack, restartGuide, wizardHistory, guideEditMode, setGuideEditMode, reorderEdges, updateNode } = useTreeStore();
+
+  const [editLabel, setEditLabel] = useState('');
+  const [editDescription, setEditDescription] = useState('');
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [overIndex, setOverIndex] = useState<number | null>(null);
@@ -98,6 +104,9 @@ export function NodeCard({ nodeId }: Props) {
     setDragIndex(null);
     setOverIndex(null);
     setGhostPos(null);
+    const n = useTreeStore.getState().nodes.find((n) => n.id === nodeId);
+    setEditLabel(n?.data.label ?? '');
+    setEditDescription(n?.data.description ?? '');
   }, [nodeId, guideEditMode]);
 
   const node = nodes.find((n) => n.id === nodeId);
@@ -179,6 +188,14 @@ export function NodeCard({ nodeId }: Props) {
     window.addEventListener('pointerup', onUp);
   };
 
+  useEffect(() => {
+    const el = descriptionRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+  }, [editDescription]);
+
+
   const ghostEdge = dragIndex !== null ? outgoing[dragIndex] : null;
   const ghostTarget = ghostEdge ? nodes.find((n) => n.id === ghostEdge.target) : null;
 
@@ -191,9 +208,31 @@ export function NodeCard({ nodeId }: Props) {
             {style.icon} {style.badgeText}
           </span>
         </div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug mb-3">{label}</h2>
-        {description && (
-          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-line">{description}</p>
+
+        {guideEditMode ? (
+          <div className="flex flex-col gap-3">
+            <Input
+              value={editLabel}
+              onChange={(e) => setEditLabel(e.target.value)}
+              placeholder="Title"
+              autoFocus
+            />
+            <textarea
+              ref={descriptionRef}
+              value={editDescription}
+              onChange={(e) => setEditDescription(e.target.value)}
+              placeholder="Description (optional)"
+              rows={1}
+              className="rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-2.5 py-1.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none overflow-hidden w-full"
+            />
+          </div>
+        ) : (
+          <>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug mb-3">{label}</h2>
+            {description && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-line">{description}</p>
+            )}
+          </>
         )}
       </div>
 
@@ -238,8 +277,8 @@ export function NodeCard({ nodeId }: Props) {
                   )
                 ) : (
                   <button
-                    onClick={() => guideStep(edge.target, typeof edge.label === 'string' ? edge.label : undefined)}
-                    className={`w-full rounded-xl border-2 px-5 py-3.5 text-left font-medium text-sm transition-colors ${nextButtonStyles[target.data.nodeType]}`}
+                    onClick={() => !guideEditMode && guideStep(edge.target, typeof edge.label === 'string' ? edge.label : undefined)}
+                    className={`w-full rounded-xl border-2 px-5 py-3.5 text-left font-medium text-sm transition-colors ${nextButtonStyles[target.data.nodeType]} ${guideEditMode ? 'cursor-default' : ''}`}
                     style={{ touchAction: 'pan-y' }}
                   >
                     <span className="block">{edgeLabel}</span>
@@ -285,23 +324,34 @@ export function NodeCard({ nodeId }: Props) {
       )}
 
       {/* Controls */}
-      {!guideEditMode && (
-        <div className="flex gap-3 justify-between pt-2">
-          <button
-            onClick={guideBack}
-            disabled={wizardHistory.length === 0}
-            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            ← Back
-          </button>
-          <button
-            onClick={restartGuide}
-            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
-          >
-            ↺ Restart
-          </button>
-        </div>
-      )}
+      <div className="flex gap-3 justify-between pt-2">
+        <button
+          onClick={guideBack}
+          disabled={wizardHistory.length === 0}
+          className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          ← Back
+        </button>
+        <button
+          onClick={() => {
+            if (guideEditMode) updateNode(nodeId, { label: editLabel, description: editDescription });
+            setGuideEditMode(!guideEditMode);
+          }}
+          className={`flex items-center gap-1.5 text-sm transition-colors ${
+            guideEditMode
+              ? 'text-blue-600 dark:text-blue-400 font-medium'
+              : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+          }`}
+        >
+          ✎ {guideEditMode ? 'Done' : 'Edit'}
+        </button>
+        <button
+          onClick={restartGuide}
+          className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+        >
+          ↺ Restart
+        </button>
+      </div>
     </div>
   );
 }

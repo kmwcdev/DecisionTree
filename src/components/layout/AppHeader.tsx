@@ -118,15 +118,6 @@ export function AppHeader() {
       </h1>
 
       <div className="flex items-center gap-2">
-        {mode === 'guide' && (
-          <Button
-            variant={guideEditMode ? 'primary' : 'secondary'}
-            size="sm"
-            onClick={() => setGuideEditMode(!guideEditMode)}
-          >
-            {guideEditMode ? 'Done' : 'Reorder'}
-          </Button>
-        )}
         <Button variant="primary" size="sm" onClick={() => setSaveModalOpen(true)} className="hidden sm:inline-flex">
           {currentTreeMeta ? 'Save' : 'Save as New'}
         </Button>
