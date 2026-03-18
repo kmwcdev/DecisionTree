@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { AppHeader } from './AppHeader';
 import { FlowCanvas } from '../canvas/FlowCanvas';
 import { EditorSidebar } from '../editor/EditorSidebar';
@@ -11,6 +11,8 @@ export function AppLayout() {
   const { mode } = useTreeStore();
   const savedAt = useTreeStore((s) => s.savedAt);
   const [toastVisible, setToastVisible] = useState(false);
+  const [editorPanelOpen, setEditorPanelOpen] = useState(false);
+  const closeEditorPanel = useCallback(() => setEditorPanelOpen(false), []);
 
   useEffect(() => {
     if (!savedAt) return;
@@ -29,11 +31,42 @@ export function AppLayout() {
           <TreesPanel />
         ) : mode === 'options' ? (
           <OptionsPanel />
+        ) : mode === 'editor' ? (
+          <div className="flex flex-col flex-1 overflow-hidden">
+            {/* Mobile editor toolbar */}
+            <div className="sm:hidden shrink-0 flex items-center justify-end px-3 py-1.5 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+              <button
+                className="p-1.5 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                onClick={() => setEditorPanelOpen(true)}
+                aria-label="Open editor"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+            {/* Canvas + desktop sidebar */}
+            <div className="flex flex-1 overflow-hidden">
+              <FlowCanvas />
+              <div className="hidden sm:flex">
+                <EditorSidebar />
+              </div>
+            </div>
+            {/* Mobile editor drawer */}
+            {editorPanelOpen && (
+              <>
+                <div
+                  className="sm:hidden fixed inset-0 bg-black/30 z-20"
+                  onClick={closeEditorPanel}
+                />
+                <div className="sm:hidden fixed inset-y-0 right-0 z-30 flex flex-col shadow-xl">
+                  <EditorSidebar onClose={closeEditorPanel} />
+                </div>
+              </>
+            )}
+          </div>
         ) : (
-          <>
-            <FlowCanvas />
-            {mode === 'editor' && <EditorSidebar />}
-          </>
+          <FlowCanvas />
         )}
       </div>
       <div
