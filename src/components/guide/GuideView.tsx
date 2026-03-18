@@ -51,7 +51,17 @@ export function GuideView() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto" style={{ touchAction: 'pan-y' }}>
+      <div className="flex-1 overflow-y-auto relative" style={{ touchAction: 'pan-y' }}>
+        {/* Mobile hamburger — inside canvas, top-left */}
+        <button
+          className="sm:hidden absolute top-3 left-3 z-10 p-1.5 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          onClick={() => setGuideHistoryOpen(!guideHistoryOpen)}
+          aria-label="Show path history"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
         <div className="min-h-full flex items-center justify-center p-8">
           <NodeCard nodeId={wizardCurrentId} />
         </div>
