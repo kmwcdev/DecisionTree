@@ -17,15 +17,15 @@ html, body {
   background-color: #111827;
 }
 
-/* 100dvh (dynamic viewport height) always matches the current visible
-   viewport — fills to the bottom whether the address bar is shown or
-   hidden, with no gap. position:fixed + top:0 keeps the header pinned. */
+/* --app-height is set every frame by the Visual Viewport API in App.tsx,
+   so it tracks Chrome's address bar animation in real time.
+   Falls back to 100dvh for browsers without visualViewport support. */
 #root {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100dvh;
+  height: var(--app-height, 100dvh);
   overflow: hidden;
 }
 

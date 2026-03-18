@@ -20,6 +20,19 @@ function App() {
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#111827');
   }, []);
 
+  // Track visual viewport height every frame so #root always fills
+  // the exact visible area during Chrome's address bar animation.
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const update = () => {
+      document.documentElement.style.setProperty('--app-height', `${vv.height}px`);
+    };
+    update();
+    vv.addEventListener('resize', update);
+    return () => vv.removeEventListener('resize', update);
+  }, []);
+
   return <AppLayout />;
 }
 
