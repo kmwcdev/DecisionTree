@@ -200,6 +200,7 @@ export function TreesPanel() {
                         variant="danger"
                         onClick={() => setConfirmEntry(entry)}
                         disabled={!!openingId || !!deletingId}
+                        className="hidden sm:inline-flex"
                       >
                         {deletingId === entry.id ? '…' : 'Delete'}
                       </Button>
