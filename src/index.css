@@ -12,19 +12,26 @@ html, body {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  /* Matches dark mode app background so the gap below the app
+     when the address bar hides on mobile is invisible. */
+  background-color: #111827;
 }
 
-/* Pin the app shell so it always fills the visible viewport.
-   position:fixed means the header and layout never reflow when
-   the browser chrome (address bar) shows or hides. */
+/* Use 100svh (small viewport height = viewport when browser chrome is
+   fully visible). This keeps the app sized for the minimum height so
+   it never reflows when Chrome's address bar shows or hides.
+   top:0/left:0/width:100% are explicit to avoid bottom:0 which is
+   what causes the jump when the layout viewport grows. */
 #root {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
   overflow: hidden;
 }
 
-/* Allow pull-to-refresh on mobile — html can overscroll even though
-   #root is fixed and contributes no scrollable document height. */
+/* Allow pull-to-refresh on mobile. */
 @media (max-width: 767px) {
   html {
     overflow-y: auto;
