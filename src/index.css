@@ -8,7 +8,13 @@
   padding: 0;
 }
 
-html, body, #root {
+html {
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+}
+
+body, #root {
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -16,14 +22,6 @@ html, body, #root {
 
 :root { color-scheme: light; }
 html.dark { color-scheme: dark; }
-
-/* Allow browser native pull-to-refresh on mobile */
-@media (max-width: 767px) {
-  html {
-    overflow-y: auto;
-    overscroll-behavior-y: auto;
-  }
-}
 
 /* ReactFlow override: remove default attribution */
 .react-flow__attribution {
