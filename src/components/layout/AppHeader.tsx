@@ -87,27 +87,39 @@ export function AppHeader() {
           Import
         </Button>
 
-        {/* Mobile-only: Guide + Trees mode buttons */}
-        <button
-          onClick={() => setMode('guide')}
-          className={`sm:hidden px-3 py-1.5 rounded border text-xs font-medium transition-colors ${
-            mode === 'guide'
-              ? 'bg-blue-600 text-white border-transparent'
-              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600'
-          }`}
-        >
-          Guide
-        </button>
-        <button
-          onClick={() => setMode('trees')}
-          className={`sm:hidden px-3 py-1.5 rounded border text-xs font-medium transition-colors ${
-            mode === 'trees'
-              ? 'bg-blue-600 text-white border-transparent'
-              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600'
-          }`}
-        >
-          Trees
-        </button>
+        {/* Mobile-only: View + Guide + Trees mode toggle */}
+        <div className="sm:hidden flex rounded-md border border-gray-300 dark:border-gray-600 overflow-hidden text-xs font-medium">
+          <button
+            onClick={() => setMode('view')}
+            className={`px-3 py-1.5 transition-colors ${
+              mode === 'view'
+                ? 'bg-blue-600 text-white'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+            }`}
+          >
+            View
+          </button>
+          <button
+            onClick={() => setMode('guide')}
+            className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
+              mode === 'guide'
+                ? 'bg-blue-600 text-white'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+            }`}
+          >
+            Guide
+          </button>
+          <button
+            onClick={() => setMode('trees')}
+            className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
+              mode === 'trees'
+                ? 'bg-blue-600 text-white'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+            }`}
+          >
+            Trees
+          </button>
+        </div>
       </div>
 
       {/* Mode toggle — hidden on mobile */}
