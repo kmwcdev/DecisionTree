@@ -215,7 +215,6 @@ export function NodeCard({ nodeId }: Props) {
               value={editLabel}
               onChange={(e) => setEditLabel(e.target.value)}
               placeholder="Title"
-              autoFocus
             />
             <textarea
               ref={descriptionRef}
