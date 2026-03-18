@@ -87,6 +87,16 @@ export function NodeCard({ nodeId }: Props) {
   const [editDescription, setEditDescription] = useState('');
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
+  const wasEditMode = useRef(false);
+
+  useEffect(() => {
+    if (wasEditMode.current && !guideEditMode) {
+      updateNode(nodeId, { label: editLabel, description: editDescription });
+    }
+    wasEditMode.current = guideEditMode;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guideEditMode]);
+
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [overIndex, setOverIndex] = useState<number | null>(null);
   const [ghostPos, setGhostPos] = useState<{ x: number; y: number } | null>(null);
@@ -323,7 +333,7 @@ export function NodeCard({ nodeId }: Props) {
       )}
 
       {/* Controls */}
-      <div className="flex gap-3 justify-between pt-2">
+      <div className="hidden sm:flex gap-3 justify-between pt-2">
         <button
           onClick={guideBack}
           disabled={wizardHistory.length === 0}
@@ -332,10 +342,7 @@ export function NodeCard({ nodeId }: Props) {
           ← Back
         </button>
         <button
-          onClick={() => {
-            if (guideEditMode) updateNode(nodeId, { label: editLabel, description: editDescription });
-            setGuideEditMode(!guideEditMode);
-          }}
+          onClick={() => setGuideEditMode(!guideEditMode)}
           className={`flex items-center gap-1.5 text-sm transition-colors ${
             guideEditMode
               ? 'text-blue-600 dark:text-blue-400 font-medium'
