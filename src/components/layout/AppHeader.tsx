@@ -1,7 +1,19 @@
-import { useRef } from 'react';
-import { useTreeStore, selectTree } from '../../store/useTreeStore';
-import { Button } from '../ui/Button';
-import type { TreeSchema } from '../../types';
+import { useTreeStore } from '../../store/useTreeStore';
+
+function AppIcon() {
+  return (
+    <svg viewBox="0 0 40 34" width="36" height="31" fill="none" aria-label="Decision Tree">
+      <line x1="20" y1="14" x2="9" y2="23" stroke="#475569" strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="20" y1="14" x2="31" y2="23" stroke="#475569" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M20 2L29 8L20 14L11 8Z" fill="#f59e0b"/>
+      <path d="M20 2L29 8L20 14L11 8Z" stroke="#fcd34d" strokeWidth="0.75" fill="none"/>
+      <rect x="2" y="23" width="14" height="9" rx="2" fill="#3b82f6"/>
+      <rect x="2" y="23" width="14" height="9" rx="2" stroke="#93c5fd" strokeWidth="0.75" fill="none"/>
+      <rect x="24" y="23" width="14" height="9" rx="2" fill="#3b82f6"/>
+      <rect x="24" y="23" width="14" height="9" rx="2" stroke="#93c5fd" strokeWidth="0.75" fill="none"/>
+    </svg>
+  );
+}
 
 function HamburgerIcon() {
   return (
@@ -11,42 +23,25 @@ function HamburgerIcon() {
   );
 }
 
+type ModeButton = { mode: Parameters<ReturnType<typeof useTreeStore>['setMode']>[0]; label: string };
+
+const desktopModes: ModeButton[] = [
+  { mode: 'view', label: 'View' },
+  { mode: 'editor', label: 'Edit' },
+  { mode: 'guide', label: 'Guide' },
+  { mode: 'trees', label: 'Trees' },
+  { mode: 'options', label: 'Options' },
+];
+
+const mobileModes: ModeButton[] = [
+  { mode: 'view', label: 'View' },
+  { mode: 'guide', label: 'Guide' },
+  { mode: 'trees', label: 'Trees' },
+  { mode: 'options', label: 'Options' },
+];
 
 export function AppHeader() {
-  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen } = useTreeStore();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleExport = () => {
-    const tree = selectTree(useTreeStore.getState());
-    const json = JSON.stringify(tree, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'labor-tree.json';
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const parsed = JSON.parse(reader.result as string) as TreeSchema;
-        if (!parsed.nodes || !parsed.edges) {
-          alert('Invalid tree file: missing nodes or edges.');
-          return;
-        }
-        loadTree(parsed);
-      } catch {
-        alert('Could not parse file. Make sure it is a valid JSON tree export.');
-      }
-    };
-    reader.readAsText(file);
-    e.target.value = '';
-  };
+  const { mode, setMode, guideHistoryOpen, setGuideHistoryOpen } = useTreeStore();
 
   return (
     <header className="h-12 shrink-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center px-4 gap-4">
@@ -59,104 +54,45 @@ export function AppHeader() {
           <HamburgerIcon />
         </button>
       )}
-      <h1 className="text-base font-bold text-gray-900 dark:text-gray-100 mr-auto leading-tight">
-        Decision<br className="sm:hidden" />{' '}Tree
-      </h1>
 
-      <div className="flex items-center gap-2">
-        <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
-          Export
-        </Button>
-        <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()} className="hidden sm:inline-flex">
-          Import
-        </Button>
-
-        {/* Mobile-only: View + Guide + Trees mode toggle */}
-        <div className="sm:hidden flex rounded-md border border-gray-300 dark:border-gray-600 overflow-hidden text-xs font-medium">
-          <button
-            onClick={() => setMode('view')}
-            className={`px-3 py-1.5 transition-colors ${
-              mode === 'view'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-            }`}
-          >
-            View
-          </button>
-          <button
-            onClick={() => setMode('guide')}
-            className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
-              mode === 'guide'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-            }`}
-          >
-            Guide
-          </button>
-          <button
-            onClick={() => setMode('trees')}
-            className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
-              mode === 'trees'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-            }`}
-          >
-            Trees
-          </button>
-        </div>
+      <div className="mr-auto flex items-center gap-2">
+        <AppIcon />
+        <h1 className="hidden sm:block text-base font-bold text-gray-900 dark:text-gray-100">Decision Tree</h1>
       </div>
 
-      {/* Mode toggle — hidden on mobile */}
+      {/* Mobile mode toggle */}
+      <div className="sm:hidden flex rounded-md border border-gray-300 dark:border-gray-600 overflow-hidden text-xs font-medium">
+        {mobileModes.map((m, i) => (
+          <button
+            key={m.mode}
+            onClick={() => setMode(m.mode)}
+            className={`px-3 py-1.5 transition-colors ${i > 0 ? 'border-l border-gray-300 dark:border-gray-600' : ''} ${
+              mode === m.mode
+                ? 'bg-blue-600 text-white'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+            }`}
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Desktop mode toggle */}
       <div className="hidden sm:flex rounded-md border border-gray-300 dark:border-gray-600 overflow-hidden text-xs font-medium">
-        <button
-          onClick={() => setMode('view')}
-          className={`px-3 py-1.5 transition-colors ${
-            mode === 'view'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-          }`}
-        >
-          View
-        </button>
-        <button
-          onClick={() => setMode('editor')}
-          className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
-            mode === 'editor'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-          }`}
-        >
-          Edit
-        </button>
-        <button
-          onClick={() => setMode('guide')}
-          className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
-            mode === 'guide'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-          }`}
-        >
-          Guide
-        </button>
-        <button
-          onClick={() => setMode('trees')}
-          className={`px-3 py-1.5 border-l border-gray-300 dark:border-gray-600 transition-colors ${
-            mode === 'trees'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-          }`}
-        >
-          Trees
-        </button>
+        {desktopModes.map((m, i) => (
+          <button
+            key={m.mode}
+            onClick={() => setMode(m.mode)}
+            className={`px-3 py-1.5 transition-colors ${i > 0 ? 'border-l border-gray-300 dark:border-gray-600' : ''} ${
+              mode === m.mode
+                ? 'bg-blue-600 text-white'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+            }`}
+          >
+            {m.label}
+          </button>
+        ))}
       </div>
-
-<input
-        ref={fileInputRef}
-        type="file"
-        accept=".json,application/json"
-        className="hidden"
-        onChange={handleImport}
-      />
     </header>
   );
 }

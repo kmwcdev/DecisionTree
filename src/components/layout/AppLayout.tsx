@@ -4,6 +4,7 @@ import { FlowCanvas } from '../canvas/FlowCanvas';
 import { EditorSidebar } from '../editor/EditorSidebar';
 import { GuideView } from '../guide/GuideView';
 import { TreesPanel } from '../trees/TreesPanel';
+import { OptionsPanel } from '../options/OptionsPanel';
 import { useTreeStore } from '../../store/useTreeStore';
 
 export function AppLayout() {
@@ -26,6 +27,8 @@ export function AppLayout() {
           <GuideView />
         ) : mode === 'trees' ? (
           <TreesPanel />
+        ) : mode === 'options' ? (
+          <OptionsPanel />
         ) : (
           <>
             <FlowCanvas />
