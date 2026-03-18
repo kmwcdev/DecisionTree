@@ -193,7 +193,7 @@ export function NodeCard({ nodeId }: Props) {
     if (!el) return;
     el.style.height = 'auto';
     el.style.height = `${el.scrollHeight}px`;
-  }, [editDescription]);
+  }, [editDescription, guideEditMode]);
 
 
   const ghostEdge = dragIndex !== null ? outgoing[dragIndex] : null;
