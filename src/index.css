@@ -14,10 +14,22 @@ html, body {
   overflow: hidden;
 }
 
+/* Pin the app shell so it always fills the visible viewport.
+   position:fixed means the header and layout never reflow when
+   the browser chrome (address bar) shows or hides. */
 #root {
   position: fixed;
   inset: 0;
   overflow: hidden;
+}
+
+/* Allow pull-to-refresh on mobile — html can overscroll even though
+   #root is fixed and contributes no scrollable document height. */
+@media (max-width: 767px) {
+  html {
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
+  }
 }
 
 :root { color-scheme: light; }
