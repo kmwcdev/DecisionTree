@@ -1,11 +1,7 @@
-import { useState } from 'react';
 import { useRef } from 'react';
 import { useTreeStore, selectTree } from '../../store/useTreeStore';
 import { Button } from '../ui/Button';
-import { SaveTreeModal } from '../trees/SaveTreeModal';
-import { saveIndex, createTreeBin, updateTreeBin, fetchTreeIndex } from '../../services/jsonbin';
-import { v4 as uuidv4 } from 'uuid';
-import type { TreeSchema, TreeEntry } from '../../types';
+import type { TreeSchema } from '../../types';
 
 function HamburgerIcon() {
   return (
@@ -33,10 +29,8 @@ function MoonIcon() {
 }
 
 export function AppHeader() {
-  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen, darkMode, toggleDarkMode, currentTreeMeta, setCurrentTreeMeta } = useTreeStore();
+  const { mode, setMode, loadTree, guideHistoryOpen, setGuideHistoryOpen, darkMode, toggleDarkMode } = useTreeStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [saveModalOpen, setSaveModalOpen] = useState(false);
-  const [saving, setSaving] = useState(false);
 
   const handleExport = () => {
     const tree = selectTree(useTreeStore.getState());
@@ -70,38 +64,6 @@ export function AppHeader() {
     e.target.value = '';
   };
 
-  const handleSave = async (name: string, description: string, asNew: boolean) => {
-    setSaving(true);
-    try {
-      const tree = selectTree(useTreeStore.getState());
-      const now = new Date().toISOString();
-      const nodeCount = tree.nodes.length;
-
-      let updatedEntries: TreeEntry[];
-      let updatedMeta: TreeEntry;
-
-      const existing = await fetchTreeIndex();
-
-      if (currentTreeMeta && !asNew) {
-        await updateTreeBin(currentTreeMeta.binId, tree);
-        updatedMeta = { ...currentTreeMeta, name, description, modifiedAt: now, nodeCount };
-        updatedEntries = existing.map((e) => (e.id === currentTreeMeta.id ? updatedMeta : e));
-      } else {
-        const binId = await createTreeBin(tree, name);
-        updatedMeta = { id: uuidv4(), name, description, createdAt: now, modifiedAt: now, nodeCount, binId };
-        updatedEntries = [updatedMeta, ...existing];
-      }
-
-      await saveIndex(updatedEntries);
-      setCurrentTreeMeta(updatedMeta);
-      setSaveModalOpen(false);
-    } catch {
-      alert('Save failed. Check your API key and try again.');
-    } finally {
-      setSaving(false);
-    }
-  };
-
   return (
     <header className="h-12 shrink-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center px-4 gap-4">
       {mode === 'guide' && (
@@ -118,15 +80,34 @@ export function AppHeader() {
       </h1>
 
       <div className="flex items-center gap-2">
-        <Button variant="primary" size="sm" onClick={() => setSaveModalOpen(true)} className="hidden sm:inline-flex">
-          {currentTreeMeta ? 'Save' : 'Save as New'}
-        </Button>
         <Button variant="secondary" size="sm" onClick={handleExport} className="hidden sm:inline-flex">
           Export
         </Button>
-        <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
+        <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()} className="hidden sm:inline-flex">
           Import
         </Button>
+
+        {/* Mobile-only: Guide + Trees mode buttons */}
+        <button
+          onClick={() => setMode('guide')}
+          className={`sm:hidden px-3 py-1.5 rounded border text-xs font-medium transition-colors ${
+            mode === 'guide'
+              ? 'bg-blue-600 text-white border-transparent'
+              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600'
+          }`}
+        >
+          Guide
+        </button>
+        <button
+          onClick={() => setMode('trees')}
+          className={`sm:hidden px-3 py-1.5 rounded border text-xs font-medium transition-colors ${
+            mode === 'trees'
+              ? 'bg-blue-600 text-white border-transparent'
+              : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600'
+          }`}
+        >
+          Trees
+        </button>
       </div>
 
       {/* Mode toggle — hidden on mobile */}
@@ -187,16 +168,6 @@ export function AppHeader() {
         accept=".json,application/json"
         className="hidden"
         onChange={handleImport}
-      />
-
-      <SaveTreeModal
-        open={saveModalOpen}
-        initialName={currentTreeMeta?.name ?? ''}
-        initialDescription={currentTreeMeta?.description ?? ''}
-        canOverwrite={!!currentTreeMeta}
-        onSave={handleSave}
-        onCancel={() => setSaveModalOpen(false)}
-        loading={saving}
       />
     </header>
   );
