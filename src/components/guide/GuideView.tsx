@@ -32,7 +32,7 @@ export function GuideView() {
             className="sm:hidden fixed inset-0 bg-black/30 z-20"
             onClick={() => setGuideHistoryOpen(false)}
           />
-          <div className="sm:hidden fixed inset-y-0 left-0 z-30 flex flex-col shadow-xl">
+          <div className="sm:hidden fixed inset-y-0 left-0 z-30 flex flex-col shadow-xl border-r border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
               <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Path so far</span>
               <button
@@ -44,7 +44,7 @@ export function GuideView() {
               </button>
             </div>
             <div className="flex-1 overflow-y-auto bg-white dark:bg-gray-800">
-              <HistorySidebar hideHeader />
+              <HistorySidebar hideHeader noBorder />
             </div>
           </div>
         </>

@@ -9,14 +9,15 @@ const dotColor: Record<NodeType, string> = {
 
 interface Props {
   hideHeader?: boolean;
+  noBorder?: boolean;
 }
 
-export function HistorySidebar({ hideHeader }: Props = {}) {
+export function HistorySidebar({ hideHeader, noBorder }: Props = {}) {
   const { wizardHistory, wizardCurrentId, nodes, guideGoTo } = useTreeStore();
 
   if (wizardHistory.length === 0) {
     return (
-      <aside className="w-52 shrink-0 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex flex-col">
+      <aside className={`w-52 shrink-0 bg-white dark:bg-gray-800 flex flex-col ${noBorder ? '' : 'border-r border-gray-200 dark:border-gray-700'}">
         {!hideHeader && (
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
             <h2 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Path so far</h2>
@@ -32,7 +33,7 @@ export function HistorySidebar({ hideHeader }: Props = {}) {
   const currentNode = nodes.find((n) => n.id === wizardCurrentId);
 
   return (
-    <aside className="w-52 shrink-0 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex flex-col overflow-hidden">
+    <aside className={`w-52 shrink-0 bg-white dark:bg-gray-800 flex flex-col ${noBorder ? '' : 'border-r border-gray-200 dark:border-gray-700'} overflow-hidden">
       {!hideHeader && (
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 shrink-0">
           <h2 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Path so far</h2>
