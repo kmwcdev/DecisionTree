@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { AppLayout } from './components/layout/AppLayout';
 import { usePersistence } from './hooks/usePersistence';
-import { useTreeStore } from './store/useTreeStore';
 
 function App() {
   usePersistence();
