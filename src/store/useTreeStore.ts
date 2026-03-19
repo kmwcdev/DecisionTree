@@ -70,7 +70,7 @@ interface TreeState {
 export const useTreeStore = create<TreeState>((set) => ({
   nodes: sampleTree.nodes,
   edges: sampleTree.edges,
-  mode: 'view',
+  mode: window.matchMedia('(max-width: 767px)').matches ? 'guide' : 'view',
   selection: { type: 'none', id: null },
   savedAt: null,
   currentTreeMeta: null,

@@ -5,14 +5,6 @@ import { useTreeStore } from './store/useTreeStore';
 
 function App() {
   usePersistence();
-  const setMode = useTreeStore((s) => s.setMode);
-
-  useEffect(() => {
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      setMode('guide');
-    }
-  }, [setMode]);
-
   // Force dark mode always
   useEffect(() => {
     document.documentElement.classList.add('dark');
