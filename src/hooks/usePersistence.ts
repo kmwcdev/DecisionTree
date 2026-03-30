@@ -3,7 +3,7 @@ import { useTreeStore, selectTree } from '../store/useTreeStore';
 import { sampleTree } from '../data/sampleTree';
 import type { TreeSchema } from '../types';
 
-const STORAGE_KEY = 'labor-decision-tree-v1';
+const STORAGE_KEY = 'labor-decision-tree-v2';
 
 function loadFromStorage(): TreeSchema | null {
   try {
