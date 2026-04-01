@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Dark background -->
+  <rect width="512" height="512" fill="#111827"/>
+  <!-- Icon artwork centered and scaled to ~80% of canvas (safe zone for maskable) -->
+  <!-- Original viewBox: 0 0 40 34, scaled to fit ~410x348 centered in 512x512 -->
+  <!-- Scale factor: 410/40 = 10.25, offset: x=(512-410)/2=51, y=(512-348)/2=82 -->
+  <g transform="translate(51, 82) scale(10.25)">
+    <line x1="20" y1="14" x2="9" y2="23" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="20" y1="14" x2="31" y2="23" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M20 2L29 8L20 14L11 8Z" fill="#f59e0b"/>
+    <path d="M20 2L29 8L20 14L11 8Z" stroke="#fcd34d" stroke-width="0.75" fill="none"/>
+    <rect x="2" y="23" width="14" height="9" rx="2" fill="#3b82f6"/>
+    <rect x="2" y="23" width="14" height="9" rx="2" stroke="#93c5fd" stroke-width="0.75" fill="none"/>
+    <rect x="24" y="23" width="14" height="9" rx="2" fill="#3b82f6"/>
+    <rect x="24" y="23" width="14" height="9" rx="2" stroke="#93c5fd" stroke-width="0.75" fill="none"/>
+  </g>
+</svg>
