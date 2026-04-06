@@ -9,7 +9,10 @@ export const sampleTree: TreeSchema = {
       position: { x: 380, y: 120 },
       data: {
         label: 'Arrive — present birth plan',
-        description: `• Hand a copy of the birth plan to the admitting nurse and ask that it go in Liz's chart. \n• Introduce yourselves. State that our information & insurance form from Snuggery was previously submitted.\n• Ask who your nurse will be and how long their shift runs.\n• Advocate firmly for intermittent fetal monitoring (not continuous) since it's a low-risk pregnancy and labor progressing normally (already approved in previous doctor's visits)`,
+        description: `• Hand a copy of the birth plan to the admitting nurse and ask that it go in Liz's chart. 
+• Introduce yourselves. State that our information & insurance form from Snuggery was previously submitted.
+• Ask who your nurse will be and how long their shift runs.
+• Advocate firmly for intermittent fetal monitoring (not continuous) since it's a low-risk pregnancy and labor progressing normally (already approved in previous doctor's visits)`,
         nodeType: 'action',
       },
     },
@@ -19,7 +22,12 @@ export const sampleTree: TreeSchema = {
       position: { x: 440, y: 260 },
       data: {
         label: 'Set up the room',
-        description: `Make the space yours:\n• Locate: the nurse call button, fridge, where Kyle can sleep\n• Set out personal items (pillow, frame, lights, water for Liz, chair/sleeping pad for Kyle)\n• Dim the lights or ask for them to be dimmed\n• Put on your playlist\n`,
+        description: `Make the space yours:
+• Locate: the nurse call button, fridge, where Kyle can sleep
+• Set out personal items (pillow, frame, lights, water for Liz, chair/sleeping pad for Kyle)
+• Dim the lights or ask for them to be dimmed
+• Put on your playlist
+`,
         nodeType: 'action',
       },
     },
@@ -29,7 +37,20 @@ export const sampleTree: TreeSchema = {
       position: { x: 420, y: 400 },
       data: {
         label: 'Do the Three Balances (Spinning Babies)',
-        description: `Do all three in order. Each takes 5–15 minutes. Goal: release fascia tension so baby can engage, rotate, and descend.\n\n1. THE JIGGLE\nLiz kneels or lies face-down over a birth ball or bed. Kyle places hands on her buttocks/sacrum and jiggles gently — small, rapid, rhythmic vibrations. Not shaking. Work the lower back, buttocks, and sitz bones. The sacrum becoming mobile helps baby rotate and descend. Continue 5–10 min.\n\n2. FORWARD-LEANING INVERSION\nLiz kneels on the edge of the bed, then lowers her forearms/hands to the floor so her head is below her hips (inverted). Kyle supports her. Hold for 3 slow breaths or 30 seconds. Then help her return to kneeling and stay upright for 1–2 min — this lets the now-lengthened ligaments re-align the uterus with the pelvis.\nSkip if: bleeding, placenta concerns, glaucoma, or any reason not to go upside down.\n\n3. SIDE-LYING RELEASE\nLiz lies on her side on a firm surface (hospital bed edge works). Her top leg hangs off or is supported in a dropped position — full, passive stretch across the inner thigh and pelvic floor. No active effort from Liz. Hold 5–10 min per side. Switch sides.\nSkip if: hypermobile joints, significant symphysis pubis pain, recent hip surgery.\n\nRepeat as needed throughout labor.`,
+        description: `Do all three in order. Each takes 5–15 minutes. Goal: release fascia tension so baby can engage, rotate, and descend.
+
+1. THE JIGGLE
+Liz kneels or lies face-down over a birth ball or bed. Kyle places hands on her buttocks/sacrum and jiggles gently — small, rapid, rhythmic vibrations. Not shaking. Work the lower back, buttocks, and sitz bones. The sacrum becoming mobile helps baby rotate and descend. Continue 5–10 min.
+
+2. FORWARD-LEANING INVERSION
+Liz kneels on the edge of the bed, then lowers her forearms/hands to the floor so her head is below her hips (inverted). Kyle supports her. Hold for 3 slow breaths or 30 seconds. Then help her return to kneeling and stay upright for 1–2 min — this lets the now-lengthened ligaments re-align the uterus with the pelvis.
+Skip if: bleeding, placenta concerns, glaucoma, or any reason not to go upside down.
+
+3. SIDE-LYING RELEASE
+Liz lies on her side on a firm surface (hospital bed edge works). Her top leg hangs off or is supported in a dropped position — full, passive stretch across the inner thigh and pelvic floor. No active effort from Liz. Hold 5–10 min per side. Switch sides.
+Skip if: hypermobile joints, significant symphysis pubis pain, recent hip surgery.
+
+Repeat as needed throughout labor.`,
         nodeType: 'action',
       },
     },
@@ -39,7 +60,7 @@ export const sampleTree: TreeSchema = {
       position: { x: 440, y: 540 },
       data: {
         label: "What is baby's station?",
-        description: `Ask your nurse or OB: 'What station is the baby at?' Station is measured from -3 (floating) to +3 (crowning), with 0 being at the ischial spines. This tells you which positioning techniques will help most.`,
+        description: "Ask your nurse or OB: 'What station is the baby at?' Station is measured from -3 (floating) to +3 (crowning), with 0 being at the ischial spines. This tells you which positioning techniques will help most.",
         nodeType: 'decision',
       },
     },
@@ -49,7 +70,17 @@ export const sampleTree: TreeSchema = {
       position: { x: 100, y: 820 },
       data: {
         label: 'High station (+2 or above) — engage the baby',
-        description: `Baby hasn't engaged yet. Techniques to bring baby down:\n• Circles on the birth ball\n• Posterior pelvic tilt / Abdominal Lift and Tuck\n• Flying Cowgirl position (3 to 6 contractions on each side)\n• Froggie / Walcher's (3 contractions, sit up in between)\n• Shake the Apples (up to 10 to 20 minutes, if comfortable)\n• Wall Pelvic Tilt and Circles\n\nA flat lower back pulls the top of the sacrum out of baby's way as they try to engage. Knees apart also creates room at the top of the pelvis.\n\nDilated >9 cm at high station? "Labor down" and delay pushing up to 1-2 hours until baby is lower, if manageable.`,
+        description: `Baby hasn't engaged yet. Techniques to bring baby down:
+• Circles on the birth ball
+• Posterior pelvic tilt / Abdominal Lift and Tuck
+• Flying Cowgirl position (3 to 6 contractions on each side)
+• Froggie / Walcher's (3 contractions, sit up in between)
+• Shake the Apples (up to 10 to 20 minutes, if comfortable)
+• Wall Pelvic Tilt and Circles
+
+A flat lower back pulls the top of the sacrum out of baby's way as they try to engage. Knees apart also creates room at the top of the pelvis.
+
+Dilated >9 cm at high station? "Labor down" and delay pushing up to 1-2 hours until baby is lower, if manageable.`,
         nodeType: 'action',
       },
     },
@@ -59,7 +90,15 @@ export const sampleTree: TreeSchema = {
       position: { x: 400, y: 820 },
       data: {
         label: 'Mid station (0) — open the mid pelvis',
-        description: `Baby is engaged but needs help moving through. Techniques:\n• Peanut ball — thighs parallel or hips asymmetric\n• Side lunge (standing or kneeling, foot to side, rock towards foot during contraction, up to 5-6 times each side. Foot down between contractions)\n• Lean over peanut ball\n• Internal rotation of femur (make sure baby is engaged, on knees or side)\n• Anterior pelvic tilt (arch the lower back)\n• Shake the Apples\n\nFirst, relax the pelvic floor with a Side-lying Release. Follow with a side lunge or asymmetrical hips. Rest with neutral thigh position.`,
+        description: `Baby is engaged but needs help moving through. Techniques:
+• Peanut ball — thighs parallel or hips asymmetric
+• Side lunge (standing or kneeling, foot to side, rock towards foot during contraction, up to 5-6 times each side. Foot down between contractions)
+• Lean over peanut ball
+• Internal rotation of femur (make sure baby is engaged, on knees or side)
+• Anterior pelvic tilt (arch the lower back)
+• Shake the Apples
+
+First, relax the pelvic floor with a Side-lying Release. Follow with a side lunge or asymmetrical hips. Rest with neutral thigh position.`,
         nodeType: 'action',
       },
     },
@@ -69,7 +108,18 @@ export const sampleTree: TreeSchema = {
       position: { x: 700, y: 820 },
       data: {
         label: 'Low station — support descent',
-        description: `Baby is descending well. Focus on opening the pelvic outlet:\n• Supported squat (holding the squat bar or Kyle's hands, through a contraction). Or any anterior pelvic tilt\n• Hands and knees (can lean on ball or side of tub)\n• Side-lying with top leg supported\n• Lunge — one foot on a chair, lean into it for 5 contractions then switch sides; opens the outlet asymmetrically\n• Internal femur rotation — knees turned inward, feet outward while sitting or squatting; widens the lower pelvic outlet\n• Figure-8 hip circles on the birth ball — slow, deliberate motion helps baby rotate and descend\n• Pelvic rocking on hands and knees — rocks baby forward and eases pressure\n• Encourage rest between contractions — conserve energy for pushing\n• Have nurse start perineal massage and lube with mineral oil\n\nChange positions every 20–30 minutes. Gravity helps — keep Liz upright or forward-leaning when possible.`,
+        description: `Baby is descending well. Focus on opening the pelvic outlet:
+• Supported squat (holding the squat bar or Kyle's hands, through a contraction). Or any anterior pelvic tilt
+• Hands and knees (can lean on ball or side of tub)
+• Side-lying with top leg supported
+• Lunge — one foot on a chair, lean into it for 5 contractions then switch sides; opens the outlet asymmetrically
+• Internal femur rotation — knees turned inward, feet outward while sitting or squatting; widens the lower pelvic outlet
+• Figure-8 hip circles on the birth ball — slow, deliberate motion helps baby rotate and descend
+• Pelvic rocking on hands and knees — rocks baby forward and eases pressure
+• Encourage rest between contractions — conserve energy for pushing
+• Have nurse start perineal massage and lube with mineral oil
+
+Change positions every 20–30 minutes. Gravity helps — keep Liz upright or forward-leaning when possible.`,
         nodeType: 'action',
       },
     },
@@ -79,7 +129,7 @@ export const sampleTree: TreeSchema = {
       position: { x: 400, y: 980 },
       data: {
         label: 'What does Liz need right now?',
-        description: `Check in between contractions. Is she in pain, tense, plateaued, or being pushed toward intervention?`,
+        description: 'Check in between contractions. Is she in pain, tense, plateaued, or being pushed toward intervention?',
         nodeType: 'decision',
       },
     },
@@ -89,7 +139,24 @@ export const sampleTree: TreeSchema = {
       position: { x: 50, y: 1220 },
       data: {
         label: 'Needs to relax',
-        description: `Pain is amplified by fear and tension — help Liz feel safe, slow down, and let go between contractions.\n\nKyle's role & environment:\n• Make eye contact, speak slowly and calmly, breathe with her\n• Give low, slow breathing cues\n• Slow stroking massage on shoulders, arms, or forehead\n• Remind her: tension makes pain worse; her body knows how to do this\n• Dim lights, quiet the room, limit people talking\n• Visualization (think about a positive/relaxing memory)\n• Birthing tub (if at least 5-6 cm dilated)\n\nPositions & movements:\n• Position change — side-lying, kneeling, or standing often breaks a tension pattern\n• Rebozo sifting between contractions\n• Slow dance — Kyle holds Liz upright, sway together\n• Shake the Apples — Liz leans forward on the bed or ball; Kyle grasps her hips and shakes gently side to side for 1–2 min\n• Three Balances (repeat as needed)\n• Acupressure SP-6: 4 finger-widths above the inner ankle bone on the inside of the leg — press firmly for 2–3 min`,
+        description: `Pain is amplified by fear and tension — help Liz feel safe, slow down, and let go between contractions.
+
+Kyle's role & environment:
+• Make eye contact, speak slowly and calmly, breathe with her
+• Give low, slow breathing cues
+• Slow stroking massage on shoulders, arms, or forehead
+• Remind her: tension makes pain worse; her body knows how to do this
+• Dim lights, quiet the room, limit people talking
+• Visualization (think about a positive/relaxing memory)
+• Birthing tub (if at least 5-6 cm dilated)
+
+Positions & movements:
+• Position change — side-lying, kneeling, or standing often breaks a tension pattern
+• Rebozo sifting between contractions
+• Slow dance — Kyle holds Liz upright, sway together
+• Shake the Apples — Liz leans forward on the bed or ball; Kyle grasps her hips and shakes gently side to side for 1–2 min
+• Three Balances (repeat as needed)
+• Acupressure SP-6: 4 finger-widths above the inner ankle bone on the inside of the leg — press firmly for 2–3 min`,
         nodeType: 'action',
       },
     },
@@ -99,7 +166,7 @@ export const sampleTree: TreeSchema = {
       position: { x: 280, y: 1220 },
       data: {
         label: 'What type of pain?',
-        description: `Ask Liz where she's feeling it most and what kind of sensation it is.`,
+        description: "Ask Liz where she's feeling it most and what kind of sensation it is.",
         nodeType: 'action',
       },
     },
@@ -109,7 +176,15 @@ export const sampleTree: TreeSchema = {
       position: { x: 0, y: 1460 },
       data: {
         label: 'Back / sacral pain',
-        description: `Pain concentrated in the lower back or tailbone area (common with posterior babies):\n• Counter-pressure — heel of Kyle's hand pressed firmly and steadily into the sacrum during each contraction\n• Cold pack on lower back for sharp pain; warm compress for dull ache — switch every 20 min\n• Acupressure BL-32: thumbs pressed into the dimples on either side of the tailbone\n• The Jiggle — gentle vibration on sacrum and buttocks between contractions\n• Hands-and-knees position takes pressure off the sacrum\n• Warm shower directed at the lower back\n• Birthing tub (if at least 5-6 cm dilated)\n• Sterile water injections (if available)`,
+        description: `Pain concentrated in the lower back or tailbone area (common with posterior babies):
+• Counter-pressure — heel of Kyle's hand pressed firmly and steadily into the sacrum during each contraction
+• Cold pack on lower back for sharp pain; warm compress for dull ache — switch every 20 min
+• Acupressure BL-32: thumbs pressed into the dimples on either side of the tailbone
+• The Jiggle — gentle vibration on sacrum and buttocks between contractions
+• Hands-and-knees position takes pressure off the sacrum
+• Warm shower directed at the lower back
+• Birthing tub (if at least 5-6 cm dilated)
+• Sterile water injections (if available)`,
         nodeType: 'action',
       },
     },
@@ -119,7 +194,27 @@ export const sampleTree: TreeSchema = {
       position: { x: 220, y: 1460 },
       data: {
         label: 'Contraction intensity',
-        description: `Pain peaks with contractions — waves of strong abdominal or general pressure\n\nCategory 1 — Manageable peaks (Liz can breathe through contractions with guidance)\n• Slow breathing: 4 counts in through the nose, 8 counts out through the mouth\n• Low, open-throated moaning or humming — direct energy down, not up\n• Birth ball: sit and do slow figure-8 hip circles during contractions\n• Acupressure comb: grip firmly in both palms at the contraction peak\n• Visualization: think about how each contraction is helping the baby do what it's supposed to and move through the birth canal\n\nCategory 2 — Struggling to cope (tensing, losing breathing pattern)\n• Acupressure LI-4: Kyle applies firm thumb pressure on the web between Liz's thumb and index finger for 1–2 min per contraction\n• Heat on lower abdomen or groin\n• Birthing tub if 5+ cm dilated\n• TENS machine\n• Counter-pressure, position change, rebozo sifting\n• Remind Liz: each contraction has a peak and an end — ride it like a wave\n\nCategory 3 — Unable to cope (cannot engage with coping strategies)\n• Acknowledge her effort: "You've done hard work. It's okay to ask for more help."\n• Move to Needs Medical Intervention for Pain node`,
+        description: `Pain peaks with contractions — waves of strong abdominal or general pressure
+
+Category 1 — Manageable peaks (Liz can breathe through contractions with guidance)
+• Slow breathing: 4 counts in through the nose, 8 counts out through the mouth
+• Low, open-throated moaning or humming — direct energy down, not up
+• Birth ball: sit and do slow figure-8 hip circles during contractions
+• Acupressure comb: grip firmly in both palms at the contraction peak
+• Visualization: think about how each contraction is helping the baby do what it's supposed to and move through the birth canal
+
+Category 2 — Struggling to cope (tensing, losing breathing pattern)
+• Continue deep vocalizations
+• Acupressure LI-4: Kyle applies firm thumb pressure on the web between Liz's thumb and index finger for 1–2 min per contraction
+• Heat on lower abdomen or groin
+• Birthing tub if 5+ cm dilated
+• TENS machine
+• Counter-pressure, position change, rebozo sifting
+• Remind Liz: each contraction has a peak and an end — ride it like a wave
+
+Category 3 — Unable to cope (cannot engage with coping strategies)
+• Acknowledge her effort: "You've done hard work. It's okay to ask for more help."
+• Move to Needs Medical Intervention for Pain node`,
         nodeType: 'action',
       },
     },
@@ -129,7 +224,11 @@ export const sampleTree: TreeSchema = {
       position: { x: 720, y: 1380 },
       data: {
         label: 'Dilation progressing slowly',
-        description: `If cervical progress has stalled, try:\n• Three Balances\n• Shake the Apples\n• Throne on toilet\n• Nipple stimulation — rolling the nipple between fingers for 2–3 min or using breast pump triggers an oxytocin release, which can strengthen and regulate contractions. Do one side at a time and pause if contractions become very intense.`,
+        description: `If cervical progress has stalled, try:
+• Three Balances
+• Shake the Apples
+• Throne on toilet
+• Nipple stimulation — rolling the nipple between fingers for 2–3 min or using breast pump triggers an oxytocin release, which can strengthen and regulate contractions. Do one side at a time and pause if contractions become very intense.`,
         nodeType: 'action',
       },
     },
@@ -139,7 +238,13 @@ export const sampleTree: TreeSchema = {
       position: { x: 1260, y: 1180 },
       data: {
         label: 'OB recommends induction',
-        description: `Before agreeing, ask Oster's four questions:\n1. What are the risks of waiting?\n2. What are the risks of inducing now?\n3. What does the evidence say?\n4. Can we try nipple stimulation or other natural methods first?\n\nIf you accept induction, Pitocin often makes contractions more intense — an epidural is reasonable and does not mean failure.`,
+        description: `Before agreeing, ask Oster's four questions:
+1. What are the risks of waiting?
+2. What are the risks of inducing now?
+3. What does the evidence say?
+4. Can we try nipple stimulation or other natural methods first?
+
+If you accept induction, Pitocin often makes contractions more intense — an epidural is reasonable and does not mean failure.`,
         nodeType: 'decision',
       },
     },
@@ -149,7 +254,7 @@ export const sampleTree: TreeSchema = {
       position: { x: 840, y: 1220 },
       data: {
         label: 'Liz is sleeping — rest',
-        description: `Do not wake her. Sleep is one of the most productive things that can happen right now. Kyle: close your eyes too. Set a phone alarm if you need to, but rest.`,
+        description: 'Do not wake her. Sleep is one of the most productive things that can happen right now. Kyle: close your eyes too. Set a phone alarm if you need to, but rest.',
         nodeType: 'action',
       },
     },
@@ -159,7 +264,8 @@ export const sampleTree: TreeSchema = {
       position: { x: 520, y: 1960 },
       data: {
         label: 'Pep is born! Tell family/friends',
-        description: `• Send the announcement text to family and friends. Include the name, weight, the baby and mom is healthy, and photo. Outreach list for Liz's side on To Do.\n• Take a breath. You did it. Welcome, Pep <3`,
+        description: `• Send the announcement text to family and friends. Include the name, weight, the baby and mom is healthy, and photo. Outreach list for Liz's side on To Do.
+• Take a breath. You did it. Welcome, Pep <3`,
         nodeType: 'action',
       },
     },
@@ -169,7 +275,26 @@ export const sampleTree: TreeSchema = {
       position: { x: 1460, y: 680 },
       data: {
         label: 'Fetal monitoring concern raised?',
-        description: `If the nurse or OB flags a concerning strip:\n• Ask: 'Is this a Category I, II, or III tracing?' (I = normal, III = requires immediate action)\n• Category II is very common and usually not an emergency — ask what specifically concerns them and what they propose to do first\n\nCategory II — try conservative measures first:\n• Roll Liz to the other side\n• Hands and knees position\n• Ask the nurse to reposition the monitor before escalating\n• Request oxygen mask to improve placental blood flow\n• Ask about reducing or pausing Pitocin if running\n• Ask for IV fluid bolus if Liz is dehydrated or BP is low\n\nQuestions to ask the care team:\n• 'What specific pattern are you seeing — can you show us?'\n• 'How long has this pattern been present?'\n• 'What would you like to try first before considering intervention?'\n• 'How much time do we have to try conservative measures?'\n• 'Is the baby showing signs of actual distress or is this indeterminate?'\n\nCategory III (absent variability + late/variable decels or bradycardia) is urgent — allow the team to act quickly but still ask what is happening.`,
+        description: `If the nurse or OB flags a concerning strip:
+• Ask: 'Is this a Category I, II, or III tracing?' (I = normal, III = requires immediate action)
+• Category II is very common and usually not an emergency — ask what specifically concerns them and what they propose to do first
+
+Category II — try conservative measures first:
+• Roll Liz to the other side
+• Hands and knees position
+• Ask the nurse to reposition the monitor before escalating
+• Request oxygen mask to improve placental blood flow
+• Ask about reducing or pausing Pitocin if running
+• Ask for IV fluid bolus if Liz is dehydrated or BP is low
+
+Questions to ask the care team:
+• 'What specific pattern are you seeing — can you show us?'
+• 'How long has this pattern been present?'
+• 'What would you like to try first before considering intervention?'
+• 'How much time do we have to try conservative measures?'
+• 'Is the baby showing signs of actual distress or is this indeterminate?'
+
+Category III (absent variability + late/variable decels or bradycardia) is urgent — allow the team to act quickly but still ask what is happening.`,
         nodeType: 'decision',
       },
     },
@@ -179,7 +304,10 @@ export const sampleTree: TreeSchema = {
       position: { x: 1100, y: 1030 },
       data: {
         label: 'Position change for monitoring',
-        description: `Changing Liz's position often resolves a concerning strip immediately:\n• Roll to the other side\n• Hands and knees\n• Ask the nurse to reposition the monitor before escalating to intervention`,
+        description: `Changing Liz's position often resolves a concerning strip immediately:
+• Roll to the other side
+• Hands and knees
+• Ask the nurse to reposition the monitor before escalating to intervention`,
         nodeType: 'action',
       },
     },
@@ -189,7 +317,7 @@ export const sampleTree: TreeSchema = {
       position: { x: 660, y: 1220 },
       data: {
         label: 'Station Changed',
-        description: `Revisit the best movements for different stations if the baby position has progressed.`,
+        description: 'Revisit the best movements for different stations if the baby position has progressed.',
         nodeType: 'action',
       },
     },
@@ -198,8 +326,10 @@ export const sampleTree: TreeSchema = {
       type: 'action',
       position: { x: -120, y: 1220 },
       data: {
-        label: 'Nurishment',
-        description: `• Make sure Liz continues to drink water.\n• Offer Gatorade or popsicle (or light snacks, if allowed by hospital)\n• Moisturize Liz's lips and hands (hospitals are dry)`,
+        label: 'Nourishment',
+        description: `• Make sure Liz continues to drink water.
+• Offer Gatorade or popsicle (or light snacks, if allowed by hospital)
+• Moisturize Liz's lips and hands (hospitals are dry)`,
         nodeType: 'action',
       },
     },
@@ -209,7 +339,9 @@ export const sampleTree: TreeSchema = {
       position: { x: 900, y: 1580 },
       data: {
         label: 'Request Epidural',
-        description: `May take as much as an hour between request and pain relief. Epidural placement takes 10–20 minutes, and Liz must remain still during placement through contractions.\n\nContinuous fetal monitoring and catheter placed after epidural.`,
+        description: `May take as much as an hour between request and pain relief. Epidural placement takes 10–20 minutes, and Liz must remain still during placement through contractions.
+
+Continuous fetal monitoring and catheter placed after epidural.`,
         nodeType: 'action',
       },
     },
@@ -219,7 +351,26 @@ export const sampleTree: TreeSchema = {
       position: { x: 840, y: 1720 },
       data: {
         label: 'Spinning Babies Techniques with Epidural',
-        description: `With an epidural, movement is limited but positioning still matters. Frequent changes every 30–60 min help baby rotate and descend.\n\nPeanut ball positioning (ask nurse for one):\n• Baby high: peanut ball between thighs in side-lying or semi-reclined — opens the pelvic inlet\n• Baby mid: uneven hips with peanut ball, alternate sides every 30 min — encourages rotation\n• Baby low/pushing: knees turned inward, feet apart — opens the pelvic outlet\n\nSpinning Babies adapted:\n• Side-lying Release — can still be done; nurse or Kyle supports top leg in a hanging/dropped position for 5–10 min per side\n• The Jiggle — Kyle can gently jiggle Liz's hips and sacrum while she lies on her side\n• Forward-leaning Inversion — NOT safe with epidural (no motor control)\n• Lunges, hands-and-knees, ball — NOT safe without motor control\n\nRest & comfort:\n• Encourage sleep between contractions — rest is productive even if she can't feel them\n• Kyle: rest too, you'll need energy for pushing\n• Keep Liz hydrated (IV will help, but ice chips/water if allowed)\n• Monitor Liz's temperature (keep cool if unable to sweat, warm blanket if chills)\n• Lip balm — hospitals are dry\n• Ask nurse about turning Liz side to side if she can't feel pressure building`,
+        description: `With an epidural, movement is limited but positioning still matters. Frequent changes every 30–60 min help baby rotate and descend.
+
+Peanut ball positioning (ask nurse for one):
+• Baby high: peanut ball between thighs in side-lying or semi-reclined — opens the pelvic inlet
+• Baby mid: uneven hips with peanut ball, alternate sides every 30 min — encourages rotation
+• Baby low/pushing: knees turned inward, feet apart — opens the pelvic outlet
+
+Spinning Babies adapted:
+• Side-lying Release — can still be done; nurse or Kyle supports top leg in a hanging/dropped position for 5–10 min per side
+• The Jiggle — Kyle can gently jiggle Liz's hips and sacrum while she lies on her side
+• Forward-leaning Inversion — NOT safe with epidural (no motor control)
+• Lunges, hands-and-knees, ball — NOT safe without motor control
+
+Rest & comfort:
+• Encourage sleep between contractions — rest is productive even if she can't feel them
+• Kyle: rest too, you'll need energy for pushing
+• Keep Liz hydrated (IV will help, but ice chips/water if allowed)
+• Monitor Liz's temperature (keep cool if unable to sweat, warm blanket if chills)
+• Lip balm — hospitals are dry
+• Ask nurse about turning Liz side to side if she can't feel pressure building`,
         nodeType: 'action',
       },
     },
@@ -229,7 +380,19 @@ export const sampleTree: TreeSchema = {
       position: { x: 1580, y: 1220 },
       data: {
         label: 'OB recommends C-section',
-        description: `Before agreeing, use the BRAIN framework:\n\nB — Benefits: 'What specifically makes a C-section the right choice right now?'\nR — Risks: 'What are the risks of surgery for Liz and the baby? For future pregnancies?'\nA — Alternatives: 'What else can we try? How much more time do we have?'\nI — Intuition: 'Is this truly urgent, or is this a recommendation we can take a few minutes to consider?'\nN — Nothing/Wait: 'What happens if we wait 30–60 minutes and try other measures first?'\n\nQuestions about urgency:\n• 'Is this an emergency requiring immediate surgery, or do we have time to ask questions?'\n• 'What is the specific indication — failure to progress, fetal distress, position, something else?'\n• 'For how long has this condition been present?'\n• 'Have we exhausted all lower-risk options?'`,
+        description: `Before agreeing, use the BRAIN framework:
+
+B — Benefits: 'What specifically makes a C-section the right choice right now?'
+R — Risks: 'What are the risks of surgery for Liz and the baby? For future pregnancies?'
+A — Alternatives: 'What else can we try? How much more time do we have?'
+I — Intuition: 'Is this truly urgent, or is this a recommendation we can take a few minutes to consider?'
+N — Nothing/Wait: 'What happens if we wait 30–60 minutes and try other measures first?'
+
+Questions about urgency:
+• 'Is this an emergency requiring immediate surgery, or do we have time to ask questions?'
+• 'What is the specific indication — failure to progress, fetal distress, position, something else?'
+• 'For how long has this condition been present?'
+• 'Have we exhausted all lower-risk options?'`,
         nodeType: 'decision',
       },
     },
@@ -259,7 +422,7 @@ export const sampleTree: TreeSchema = {
       position: { x: 480, y: 1460 },
       data: {
         label: 'Stuck Behind Public Bone',
-        description: `The baby may be stuck at the brim or inlet of the pelvis.`,
+        description: 'The baby may be stuck at the brim or inlet of the pelvis.',
         nodeType: 'action',
       },
     },
@@ -269,7 +432,12 @@ export const sampleTree: TreeSchema = {
       position: { x: 1800, y: 1400 },
       data: {
         label: 'Fetal Distress',
-        description: `If the reason is fetal concerns:\n• 'What category is the monitoring strip?'\n• 'Have we tried position changes, oxygen, and reducing Pitocin?'\n• Refer to the Fetal Monitoring Concern node\n\nNote: In a true emergency (Category III strip, cord prolapse, abruption), trust the team and ask questions after.`,
+        description: `If the reason is fetal concerns:
+• 'What category is the monitoring strip?'
+• 'Have we tried position changes, oxygen, and reducing Pitocin?'
+• Refer to the Fetal Monitoring Concern node
+
+Note: In a true emergency (Category III strip, cord prolapse, abruption), trust the team and ask questions after.`,
         nodeType: 'action',
       },
     },
@@ -279,7 +447,11 @@ export const sampleTree: TreeSchema = {
       position: { x: 1380, y: 1580 },
       data: {
         label: 'Failure to Progress',
-        description: `If the reason is failure to progress:\n• 'How long has dilation been stalled, and what is normal for first-time labor?'\n• 'Have we tried position changes, Spinning Babies techniques, or nipple stimulation?'\n• 'Is the baby tolerating labor well on the monitor?'\n• 'Can we have 1 more hour to try active measures and reassess?'`,
+        description: `If the reason is failure to progress:
+• 'How long has dilation been stalled, and what is normal for first-time labor?'
+• 'Have we tried position changes, Spinning Babies techniques, or nipple stimulation?'
+• 'Is the baby tolerating labor well on the monitor?'
+• 'Can we have 1 more hour to try active measures and reassess?'`,
         nodeType: 'action',
       },
     },
@@ -289,7 +461,7 @@ export const sampleTree: TreeSchema = {
       position: { x: 1160, y: 1580 },
       data: {
         label: 'Amniotomy / Break Water',
-        description: `Only if water hasn't fully broken yet. Preferred as first option before pitocin.`,
+        description: "Only if water hasn't fully broken yet. Preferred as first option before pitocin.",
         nodeType: 'action',
       },
     },
@@ -309,7 +481,7 @@ export const sampleTree: TreeSchema = {
       position: { x: -240, y: 1440 },
       data: {
         label: 'Needs Medical Intervention for Pain',
-        description: `This is not a failure. You are amazing.`,
+        description: 'This is not a failure. You are amazing.',
         nodeType: 'decision',
       },
     },
@@ -319,7 +491,13 @@ export const sampleTree: TreeSchema = {
       position: { x: 680, y: 1580 },
       data: {
         label: 'IV Acetaminophen',
-        description: `Best for: early or active labor with moderate contraction peak pain. Good first step before opioids — Liz stays clear-headed and mobile.\n• Non-opioid, no sedation or nausea\n• 15-min IV infusion (1000mg)\n• Onset: 15–30 min | Duration: 4–6 hrs\n• No fetal risk\n\nSnuggery usually reserves this for post-partum — ask specifically if it's available during labor.`,
+        description: `Best for: early or active labor with moderate contraction peak pain. Good first step before opioids — Liz stays clear-headed and mobile.
+• Non-opioid, no sedation or nausea
+• 15-min IV infusion (1000mg)
+• Onset: 15–30 min | Duration: 4–6 hrs
+• No fetal risk
+
+Snuggery usually reserves this for post-partum — ask specifically if it's available during labor.`,
         nodeType: 'action',
       },
     },
@@ -329,7 +507,13 @@ export const sampleTree: TreeSchema = {
       position: { x: 460, y: 1580 },
       data: {
         label: 'Fentanyl',
-        description: `Best for: active labor when Liz needs short bursts of relief to get through a difficult stretch without committing to an epidural. Still feels contractions but peaks are blunted.\n• IV bolus (no PCA at Snuggery)\n• Onset: 2–5 min | Duration: 30–60 min | Re-dosable every 1–2 hrs\n• Moderate sedation; may cause nausea — ask about anti-nausea med\n• Low fetal risk; may cause brief heart rate variability changes on monitor (normal)\n\nSnuggery doesn't commonly use this — confirm availability when requesting.`,
+        description: `Best for: active labor when Liz needs short bursts of relief to get through a difficult stretch without committing to an epidural. Still feels contractions but peaks are blunted.
+• IV bolus (no PCA at Snuggery)
+• Onset: 2–5 min | Duration: 30–60 min | Re-dosable every 1–2 hrs
+• Moderate sedation; may cause nausea — ask about anti-nausea med
+• Low fetal risk; may cause brief heart rate variability changes on monitor (normal)
+
+Snuggery doesn't commonly use this — confirm availability when requesting.`,
         nodeType: 'action',
       },
     },
@@ -339,7 +523,11 @@ export const sampleTree: TreeSchema = {
       position: { x: 300, y: 1580 },
       data: {
         label: 'Morphine',
-        description: `Best for: latent (early) labor when Liz is exhausted and needs rest more than alertness. Not for managing peak pain — for therapeutic sleep between contractions.\n• IV or IM injection\n• Onset: 15–30 min | Duration: 2–4 hrs\n• High sedation — Liz will likely sleep between contractions\n• Only before 7 cm dilation — given too late, sedation can affect the baby's breathing at birth`,
+        description: `Best for: latent (early) labor when Liz is exhausted and needs rest more than alertness. Not for managing peak pain — for therapeutic sleep between contractions.
+• IV or IM injection
+• Onset: 15–30 min | Duration: 2–4 hrs
+• High sedation — Liz will likely sleep between contractions
+• Only before 7 cm dilation — given too late, sedation can affect the baby's breathing at birth`,
         nodeType: 'action',
       },
     },
@@ -349,7 +537,71 @@ export const sampleTree: TreeSchema = {
       position: { x: 120, y: 1580 },
       data: {
         label: 'Sterile Water Injections',
-        description: `Best for: severe lower back or sacral pain (back labor), especially with a suspected posterior baby. Non-pharmacological — no drugs, no fetal risk.\n• Four small injections of sterile water at the sacral dimples\n• Stings intensely for ~20–30 sec, then relief within 1–2 min\n• Duration: 45 min–2 hrs | Repeatable as needed\n• Little effect on general abdominal contraction pain\n\nMay not be a standard offering at Snuggery yet. Ask early: "Are you offering sterile water injections for back labor?"`,
+        description: `Best for: severe lower back or sacral pain (back labor), especially with a suspected posterior baby. Non-pharmacological — no drugs, no fetal risk.
+• Four small injections of sterile water at the sacral dimples
+• Stings intensely for ~20–30 sec, then relief within 1–2 min
+• Duration: 45 min–2 hrs | Repeatable as needed
+• Little effect on general abdominal contraction pain
+
+May not be a standard offering at Snuggery yet. Ask early: "Are you offering sterile water injections for back labor?"`,
+        nodeType: 'action',
+      },
+    },
+    {
+      id: 'b3bb3e4b-f879-4a7d-aeba-4abf56c53bf4',
+      type: 'action',
+      position: { x: -280, y: 1220 },
+      data: {
+        label: 'Words of Affirmation',
+        description: `Encouragement and Validation
+• "I am so proud of how strong you are."
+• "That was a huge wave, and you handled it perfectly."
+• "I’m right here. I’m not going anywhere."
+• "You are doing it. You’re doing it right now."
+• "Think of all of the women cheering you on right now."
+• "You are powerful."
+
+Grounding and Relaxation Reminders
+• "Relax your jaw and your shoulders; let them drop."
+• "Soft jaw, soft cervix."
+• "Just focus on my touch."
+• "Let’s take the next one together."
+• "Ride it like a wave."
+
+Goal-Oriented Phrases
+• "One check point at a time."
+• "Each contraction is just 10 breaths or less."
+• "This is temporary; you can do anything for a minute."
+
+Trusting Your Body
+• "Your body knows what to do."
+• "The pain is not hurting you, it's moving Pep through your body."
+• "This is purposeful pain."`,
+        nodeType: 'action',
+      },
+    },
+    {
+      id: '694af6b3-00bd-45c0-976f-cb82477714e3',
+      type: 'action',
+      position: { x: 540, y: 2060 },
+      data: {
+        label: 'Follow Up Medical Actions',
+        description: `Right after Birth
+• Delayed cord clamping. Kyle to cut the cord.
+• Immediate skin-to-skin connection
+• Save the placenta!
+
+Pep Tests/Treatments
+• Vitamin K shot
+• Eye ointment
+• Blood test - confirm that they'll be testing for PKU and ask if they can also test for: Factor 2, Odonto‐Onycho‐Dermal Dysplasia / Schopf‐Schulz‐Passarge Syndrome, and Progressive Familial Intrahepatic Cholestasis, ABCB4‐Related
+• Hearing test
+• Bilirubin/jaundice check
+• Check swollen kidney
+
+Liz Treatments
+• Chicken pox vaccine
+• Blood thinner (ONLY if C-section)`,
         nodeType: 'action',
       },
     },
@@ -362,28 +614,24 @@ export const sampleTree: TreeSchema = {
       id: 't3-e4',
       source: 't3-n4',
       target: 't3-n5',
-      label: 'High (+2 or above)',
       data: { label: 'High (+2 or above)' },
     },
     {
       id: 't3-e5',
       source: 't3-n4',
       target: 't3-n6',
-      label: 'Mid (0)',
       data: { label: 'Mid (0)' },
     },
     {
       id: 't3-e6',
       source: 't3-n4',
       target: 't3-n7',
-      label: 'Low',
       data: { label: 'Low' },
     },
     {
       id: 't3-e7',
       source: 't3-n4',
       target: 't3-n16',
-      label: 'Monitoring concern',
       data: { label: 'Monitoring concern' },
     },
     { id: 't3-e8', source: 't3-n5', target: 't3-n8', data: {} },
@@ -393,14 +641,12 @@ export const sampleTree: TreeSchema = {
       id: 't3-e11',
       source: 't3-n8',
       target: 't3-n9',
-      label: 'Relax',
       data: { label: 'Relax' },
     },
     {
       id: 't3-e12',
       source: 't3-n8',
       target: 't3-n10',
-      label: 'Pain Management',
       data: { label: 'Pain Management' },
     },
     {
@@ -415,14 +661,12 @@ export const sampleTree: TreeSchema = {
       id: 't3-e21',
       source: 't3-n17',
       target: 't3-n8',
-      label: 'Resolved',
       data: { label: 'Resolved' },
     },
     {
       id: 't3-e15',
       source: 't3-n8',
       target: 't3-n14',
-      label: 'Sleeping',
       data: { label: 'Sleeping' },
     },
     {
@@ -458,7 +702,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 't3-n8',
       target: '8cc1f92b-04c9-4d6a-9de2-565546c98835',
-      label: 'Slow Progress',
       data: { label: 'Slow Progress' },
     },
     {
@@ -508,7 +751,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 't3-n10',
       target: 'pain-back',
-      label: 'Back / sacral',
       data: { label: 'Back / sacral' },
     },
     {
@@ -516,7 +758,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 't3-n10',
       target: 'pain-contraction',
-      label: 'Contraction peaks',
       data: { label: 'Contraction peaks' },
     },
     {
@@ -573,7 +814,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 't3-n17',
       target: 't3-n16',
-      label: 'Unresolved',
       data: { label: 'Unresolved' },
     },
     {
@@ -584,10 +824,10 @@ export const sampleTree: TreeSchema = {
       data: {},
     },
     {
-      id: '046161b6-b9d6-4319-bccf-4f0acb2418bf',
+      id: 'e010ec35-e12d-4f94-a392-867e32b93ae5',
       type: 'custom',
       source: 't3-n8',
-      target: 't3-n16',
+      target: 'b3bb3e4b-f879-4a7d-aeba-4abf56c53bf4',
       data: {},
     },
     {
@@ -595,7 +835,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 't3-n10',
       target: 't3-n9',
-      label: 'Tension/ Anxiety',
       data: { label: 'Tension/ Anxiety' },
     },
     {
@@ -603,14 +842,13 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 't3-n12',
       target: 'd1549436-502e-4ba4-9676-992acefc41a8',
-      label: "If water hasn't broken yet",
       data: { label: "If water hasn't broken yet" },
     },
     {
-      id: 'b9d65d0a-f6b8-4665-bcc7-9344c82c52d7',
+      id: '046161b6-b9d6-4319-bccf-4f0acb2418bf',
       type: 'custom',
       source: 't3-n8',
-      target: 't3-n15',
+      target: 't3-n16',
       data: {},
     },
     {
@@ -653,7 +891,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'ce9a6751-653e-4a30-a7c5-adff11a65ea4',
       target: '8c27eddc-1bd7-4abc-80cc-7640d07a2da5',
-      label: 'Accept C-section',
       data: { label: 'Accept C-section' },
     },
     {
@@ -661,7 +898,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'fcf70f9b-3547-47f2-8f8f-fc8f69ac417b',
       target: '8c27eddc-1bd7-4abc-80cc-7640d07a2da5',
-      label: 'Accept C-section',
       data: { label: 'Accept C-section' },
     },
     {
@@ -669,7 +905,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'ce9a6751-653e-4a30-a7c5-adff11a65ea4',
       target: 't3-n8',
-      label: 'Avoid C-section',
       data: { label: 'Avoid C-section' },
     },
     {
@@ -677,7 +912,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'fcf70f9b-3547-47f2-8f8f-fc8f69ac417b',
       target: 't3-n8',
-      label: 'Avoid C-section',
       data: { bendX: 1150.9767740195514, label: 'Avoid C-section' },
     },
     {
@@ -692,7 +926,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 't3-n12',
       target: 'adb4cf85-304e-413f-93ab-507448f7b08b',
-      label: 'Water was broken',
       data: { label: 'Water was broken' },
     },
     {
@@ -700,7 +933,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'adb4cf85-304e-413f-93ab-507448f7b08b',
       target: 'd39d7a61-715c-473a-bd2a-15449d1d5574',
-      label: 'Yes, >12 hours. Accept Pitocin.',
       data: { label: 'Yes, >12 hours. Accept Pitocin.' },
     },
     {
@@ -708,7 +940,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'adb4cf85-304e-413f-93ab-507448f7b08b',
       target: 't3-n11',
-      label: 'No, <12 hours. Try natural first.',
       data: { label: 'No, <12 hours. Try natural first.' },
     },
     {
@@ -723,7 +954,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'f9298bd8-dcae-41c8-985f-ae2666813813',
       target: '77779b03-7fba-40fa-9934-1808deb789ef',
-      label: 'Sterile Water Injections (Back Labor)',
       data: { label: 'Sterile Water Injections (Back Labor)' },
     },
     {
@@ -731,7 +961,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'f9298bd8-dcae-41c8-985f-ae2666813813',
       target: 'e67a9fb1-4b4f-4096-842d-0480ad300daa',
-      label: 'Morphine (Early Labor)',
       data: { label: 'Morphine (Early Labor)' },
     },
     {
@@ -746,7 +975,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'f9298bd8-dcae-41c8-985f-ae2666813813',
       target: '3f74bb5f-2136-4551-b2dc-9567f51ce3fe',
-      label: 'IV Acetaminophen (Early or Active Labor)',
       data: { label: 'IV Acetaminophen (Early or Active Labor)' },
     },
     {
@@ -754,7 +982,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'f9298bd8-dcae-41c8-985f-ae2666813813',
       target: 'be923c44-37c8-4072-8a04-0b78daf4eb75',
-      label: 'Fentanyl (Active Labor)',
       data: { label: 'Fentanyl (Active Labor)' },
     },
     {
@@ -762,7 +989,6 @@ export const sampleTree: TreeSchema = {
       type: 'custom',
       source: 'f9298bd8-dcae-41c8-985f-ae2666813813',
       target: 'd39d7a61-715c-473a-bd2a-15449d1d5574',
-      label: 'Epidural (Active Labor)',
       data: { label: 'Epidural (Active Labor)' },
     },
     {
@@ -797,6 +1023,41 @@ export const sampleTree: TreeSchema = {
       id: 'pain-contraction-return',
       type: 'custom',
       source: 'pain-contraction',
+      target: 't3-n8',
+      data: {},
+    },
+    {
+      id: 'b9d65d0a-f6b8-4665-bcc7-9344c82c52d7',
+      type: 'custom',
+      source: 't3-n8',
+      target: 't3-n15',
+      data: {},
+    },
+    {
+      id: 'f8a28d71-efa7-4bc9-b001-04e2b0b4897c',
+      type: 'custom',
+      source: 'b3bb3e4b-f879-4a7d-aeba-4abf56c53bf4',
+      target: 't3-n8',
+      data: {},
+    },
+    {
+      id: 'df45a8bd-4443-4698-855d-869a9de4922d',
+      type: 'custom',
+      source: 't3-n9',
+      target: 'b3bb3e4b-f879-4a7d-aeba-4abf56c53bf4',
+      data: {},
+    },
+    {
+      id: '597cd06b-5fa4-4813-b36a-d58154d09cbd',
+      type: 'custom',
+      source: 't3-n15',
+      target: '694af6b3-00bd-45c0-976f-cb82477714e3',
+      data: {},
+    },
+    {
+      id: '9b91c49f-29be-4ce1-ac67-88d5302d7964',
+      type: 'custom',
+      source: 't3-n1',
       target: 't3-n8',
       data: {},
     },
