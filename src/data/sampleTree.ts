@@ -12,7 +12,8 @@ export const sampleTree: TreeSchema = {
         description: `• Hand a copy of the birth plan to the admitting nurse and ask that it go in Liz's chart. 
 • Introduce yourselves. State that our information & insurance form from Snuggery was previously submitted.
 • Ask who your nurse will be and how long their shift runs.
-• Advocate firmly for intermittent fetal monitoring (not continuous) since it's a low-risk pregnancy and labor progressing normally (already approved in previous doctor's visits)`,
+• Advocate firmly for intermittent fetal monitoring (not continuous) since it's a low-risk pregnancy and labor progressing normally (already approved in previous doctor's visit)
+• Click start timer`,
         nodeType: 'action',
       },
     },
@@ -142,12 +143,13 @@ Change positions every 20–30 minutes. Gravity helps — keep Liz upright or fo
         description: `Pain is amplified by fear and tension — help Liz feel safe, slow down, and let go between contractions.
 
 Kyle's role & environment:
+• Relax your jaw
 • Make eye contact, speak slowly and calmly, breathe with her
 • Give low, slow breathing cues
 • Slow stroking massage on shoulders, arms, or forehead
 • Remind her: tension makes pain worse; her body knows how to do this
 • Dim lights, quiet the room, limit people talking
-• Visualization (think about a positive/relaxing memory)
+• Visualization (think about a positive/relaxing memory, Trt log, Grover Hot Springs)
 • Birthing tub (if at least 5-6 cm dilated)
 
 Positions & movements:
@@ -208,7 +210,7 @@ Category 2 — Struggling to cope (tensing, losing breathing pattern)
 • Acupressure LI-4: Kyle applies firm thumb pressure on the web between Liz's thumb and index finger for 1–2 min per contraction
 • Heat on lower abdomen or groin
 • Birthing tub if 5+ cm dilated
-• TENS machine
+• TENS machine (normal, pulse width 150-200, pulse rate 100+)
 • Counter-pressure, position change, rebozo sifting
 • Remind Liz: each contraction has a peak and an end — ride it like a wave
 
@@ -461,7 +463,7 @@ Note: In a true emergency (Category III strip, cord prolapse, abruption), trust 
       position: { x: 1160, y: 1580 },
       data: {
         label: 'Amniotomy / Break Water',
-        description: "Only if water hasn't fully broken yet. Preferred as first option before pitocin.",
+        description: `Only if water hasn't fully broken yet. Preferred as first option before pitocin.\n\nConfirm that can still go on birthing tub if water is broken.`,
         nodeType: 'action',
       },
     },
